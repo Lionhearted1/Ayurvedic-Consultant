@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+
+.inptbox{
+  @apply flex flex-col justify-start;
+}
+
+.backdropBlur {
+  backdrop-filter: blur(10px); 
+}
+
+.lbl{
+  @apply text-[0.85rem] sm:text-[1rem] md:text-[1rem];
+}
+
+.wrapp{
+  @apply h-screen w-screen bg-black bg-opacity-5 px-[2rem] py-[4rem] md:px-[5rem] md:py-[4rem] lg:px-[8rem] lg:py-[5rem];
+}
+
+.wrap{
+  @apply h-screen w-screen bg-black bg-opacity-5 md:px-[5rem] md:py-[4rem] lg:px-[8rem] lg:py-[5rem];
+}
+
+.back{
+  @apply w-full h-full bg-white bg-opacity-25 backdropBlur flex flex-col items-center justify-center md:rounded-2xl;
+}
+
+@tailwind utilities;
+
