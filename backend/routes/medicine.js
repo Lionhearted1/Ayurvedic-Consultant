@@ -57,22 +57,34 @@ router.get('/search-indications', async (req, res) => {
 });
   
 router.get('/autocomplete', async (req, res) => {
-    const { query } = req.query;
-  
-    try {
-      const matchingMedicines = await Medicine.find({
-        'indications': { $in: [new RegExp(query, 'i')] }
-      });
-  
-      if (matchingMedicines.length === 0) {
-        res.json({ message: 'No matching indications found.' });
-      } else {
-        res.json(matchingMedicines);
-      }
-    } catch (err) {
-      res.status(500).json({ message: err.message });
+  const { query } = req.query;
+
+  try {
+    const matchingMedicines = await Medicine.find({
+      'indications': { $in: [new RegExp(query, 'i')] }
+    });
+
+    if (matchingMedicines.length === 0) {
+      return res.status(404).json({ message: 'No matching indications found.' }); // 404 for "Not Found"
+    } else {
+      // Extract the 'indications' field from the matching medicines and create an array
+      const indicationsArray = matchingMedicines.reduce((indications, medicine) => {
+        indications.push(...medicine.indications);
+        return indications;
+      }, []);
+
+      // Remove duplicates from the indications array and return it
+      const uniqueIndications = [...new Set(indicationsArray)];
+
+      return res.status(200).json(uniqueIndications); // 200 for "OK"
     }
+  } catch (err) {
+    return res.status(500).json({ message: err.message }); // 500 for "Internal Server Error"
+  }
 });
+
+
+
   
 router.get('/precautions', async (req, res) => {
     const { indications } = req.query;
