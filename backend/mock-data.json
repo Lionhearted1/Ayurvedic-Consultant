@@ -1,0 +1,33 @@
+[{
+	"id": 1,
+	"medicine": "Abhayarishta",
+	"reference": "AFI",
+	"pack-Size": "200 ml",
+	"indications": ["Arsha", "Agnimandya", "Udararoga", "Vibandha"],
+	"dosage": "12-24\nml",
+	"precaution": "NS",
+	"opd_ip": "Both",
+	"category": "Asava Arista"
+  },
+  {
+	"id": 2,
+	"medicine": "Amritarishta",
+	"reference": "AFI",
+	"pack-Size": "200 ml",
+	"indications": ["SarvaJvara", "Jirna Jvara"],
+	"dosage": "12-24\nml",
+	"precaution": "NS",
+	"opd_ip": "Both",
+	"category": "Asava Arista"
+  },
+  {
+	"id": 3,
+	"medicine": "Aragvadharishta",
+	"reference": "AH",
+	"pack-Size": "200 ml",
+	"indications": ["Kandu", "Tvak Vikara", "Vibandha"],
+	"dosage": "12-24\nml",
+	"precaution": "NS",
+	"opd_ip": "Both",
+	"category": ""
+  }]

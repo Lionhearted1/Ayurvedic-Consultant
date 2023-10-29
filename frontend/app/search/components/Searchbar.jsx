@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { motion } from "framer-motion"; // Import motion from Framer Motion
+import { motion } from "framer-motion"; 
 
 const Searchbar = (props) => {
   const [isFocused, setIsFocused] = useState(false);
