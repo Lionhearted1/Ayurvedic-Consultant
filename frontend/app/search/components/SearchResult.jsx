@@ -2,7 +2,7 @@ import React from "react";
 
 const SearchResult = (props) => {
   const handleCLick=()=>{
-    props.handleAutoClick();
+    props.onCLick();
   }
  
  
