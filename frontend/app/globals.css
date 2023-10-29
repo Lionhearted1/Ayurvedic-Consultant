@@ -25,5 +25,10 @@
   @apply w-full h-full bg-white bg-opacity-25 backdropBlur flex flex-col items-center justify-center md:rounded-2xl;
 }
 
+.blurBg {
+  
+  filter: blur(8px);
+}
+
 @tailwind utilities;
 

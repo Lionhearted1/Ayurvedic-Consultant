@@ -10,7 +10,6 @@ const Page = () => {
   const [isInputFocused, setInputFocused] = useState(false);
   const [isPrecAvailable, setPrecAvailable] = useState(false);
 
-
   //for visibility
   const handleFocus = (focus) => {
     setInputFocused(focus);
@@ -19,31 +18,32 @@ const Page = () => {
   //animation variables
   const searchAni = `${isInputFocused || isPrecAvailable ? "slide-up" : ""}`;
   const precAvail = `${isInputFocused || isPrecAvailable ? "" : "hidden"}`;
+  const autoCmplt = `${isInputFocused ? "" : "hidden"}`;
+  const autoType = `${isInputFocused || isPrecAvailable ? "hidden" : ""}`;
 
-  //for search-bar 
-  const [searchTerm, setSearchTerm] = useState('');
+  //for search-bar
+  const [searchTerm, setSearchTerm] = useState("");
   const handleSearchChange = (value) => {
     setSearchTerm(value);
-  }
+  };
 
   return (
     <>
       <div className="wrap">
         <div className="back">
-          <Searchbar 
-          condition={searchAni} 
-          onInputFocus={handleFocus} 
-          onSearchChange={handleSearchChange}
+          <Searchbar
+            condition={searchAni}
+            autoTypeCondition={autoType}
+            autoComplete={autoCmplt}
+            onInputFocus={handleFocus}
+            onSearchChange={handleSearchChange}
           />
 
-          <Checkbox 
-          condition={precAvail} 
-          />
+          <Checkbox condition={precAvail} />
+        
 
-          <ConfirmBtn 
-          condition={precAvail} 
-          />
 
+          <ConfirmBtn condition={precAvail} />
         </div>
       </div>
     </>
