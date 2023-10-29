@@ -16,6 +16,10 @@ const Searchbar = (props) => {
     setIsFocused(false);
     props.onInputFocus(false);
   };
+const value2="hello"
+  const handleAutoClick=()=>{
+    onSearchChange(value2)
+  }
 
   return (
     <>
@@ -45,16 +49,8 @@ const Searchbar = (props) => {
           />
         </motion.div>
         <div className={` absolute top-[8.5rem] md:top-[7.5rem] h-[10rem] md:h-[12rem] w-3/4  bg-black bg-opacity-60 text-white rounded-2xl overflow-hidden overflow-y-auto ${props.autoComplete}`}>
-        <SearchResult/>
-        <SearchResult/>
-        <SearchResult/>
-        <SearchResult/>
-        <SearchResult/>
-        <SearchResult/>
-        <SearchResult/>
-        <SearchResult/>
-        <SearchResult/>
-        <SearchResult/>
+        <SearchResult value={value2} onCLick={handleAutoClick}/>
+        
 
 
         </div>

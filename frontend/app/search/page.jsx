@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import ConfirmBtn from "./components/ConfirmBtn";
 
 const Page = () => {
+  
   //for visbilty of checkbox and confirm button
   const [isInputFocused, setInputFocused] = useState(false);
   const [isPrecAvailable, setPrecAvailable] = useState(false);
@@ -21,6 +22,8 @@ const Page = () => {
   const autoCmplt = `${isInputFocused ? "" : "hidden"}`;
   const autoType = `${isInputFocused || isPrecAvailable ? "hidden" : ""}`;
 
+
+  
   //for search-bar
   const [searchTerm, setSearchTerm] = useState("");
   const handleSearchChange = (value) => {
