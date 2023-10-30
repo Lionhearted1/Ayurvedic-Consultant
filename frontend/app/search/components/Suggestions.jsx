@@ -9,7 +9,8 @@ const Suggestions = (props) => {
     <>
       <div
         className={`suggestions absolute top-[8.5rem] md:top-[7.5rem] h-auto md:h-auto max-h-[10rem] md:max-h-[12rem] w-3/4 bg-black bg-opacity-60 text-white rounded-2xl overflow-hidden overflow-y-auto`}
-        ref={props.ref}
+        ref={props.suggestionsRef}
+
       >
         {props.error && (
           <SearchResult className="error-message" value={props.error} />
@@ -27,7 +28,6 @@ const Suggestions = (props) => {
             ariaSelected={index === selectedSuggestionIndex}
             tabIndex={0}
             value={suggestion}
-            ref={props.ref}
           />
         ))}
       </div>

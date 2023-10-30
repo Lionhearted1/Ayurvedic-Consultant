@@ -62,6 +62,7 @@ const Searchbar = (props) => {
     } else {
       setSuggestions([]);
     }
+
   };
 
   const handleSuggestionClick = (suggestion) => {
@@ -76,6 +77,9 @@ const Searchbar = (props) => {
     
     setSuggestions([]);
     inputRef.current.focus();
+    console.log(newQuery); 
+    
+
   };
 
   const handleKeyDown = (e) => {
@@ -105,12 +109,6 @@ const Searchbar = (props) => {
   };
 
 
-
-  const logOrReturnInputValue = () => {
-    console.log(query); // Log the input value to the console
-    // If you want to return the value, you can use `return query;`
-  };
-
   const clearInput = () => {
     setQuery("");
     setSuggestions([]);
@@ -119,20 +117,27 @@ const Searchbar = (props) => {
   };
 
   useEffect(() => {
-    // Ensure that the selected suggestion is always in the view
     if (suggestionsRef.current) {
       const suggestionElement = suggestionsRef.current.children[selectedSuggestionIndex];
       if (suggestionElement) {
-        // Calculate the scroll position to make the selected suggestion visible
-        const suggestionTop = suggestionElement.offsetTop;
-        const suggestionHeight = suggestionElement.clientHeight;
         const containerHeight = suggestionsRef.current.clientHeight;
+        const suggestionHeight = suggestionElement.clientHeight;
+        const suggestionTop = suggestionElement.offsetTop;
         const scrollTop = suggestionsRef.current.scrollTop;
-
-        if (suggestionTop < scrollTop) {
-          suggestionsRef.current.scrollTop = suggestionTop;
-        } else if (suggestionTop + suggestionHeight > scrollTop + containerHeight) {
-          suggestionsRef.current.scrollTop = suggestionTop + suggestionHeight - containerHeight;
+  
+        // Define a decrease factor that's proportional to the number of elements.
+        const decreaseFactor = 0.2 - 0.105 * selectedSuggestionIndex; // Adjust this value as needed
+  
+        // Calculate the scroll position to make the selected suggestion centered
+        const centeredScrollTop = suggestionTop - (containerHeight * decreaseFactor);
+  
+        // Ensure the scroll position is within bounds
+        if (centeredScrollTop < 0) {
+          suggestionsRef.current.scrollTop = 0;
+        } else if (centeredScrollTop + containerHeight > suggestionsRef.current.scrollHeight) {
+          suggestionsRef.current.scrollTop = suggestionsRef.current.scrollHeight - containerHeight;
+        } else {
+          suggestionsRef.current.scrollTop = centeredScrollTop;
         }
       }
     }
@@ -185,7 +190,7 @@ const Searchbar = (props) => {
         selectedSuggestionIndex={selectedSuggestionIndex}
         handleKeyDown={handleKeyDown}
         handleSuggestionClick={handleSuggestionClick}
-        ref={suggestionsRef}
+        suggestionsRef={suggestionsRef}
         />
       </motion.div>
     </>
