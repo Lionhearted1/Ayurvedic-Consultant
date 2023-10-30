@@ -83,47 +83,48 @@ router.get('/autocomplete', async (req, res) => {
   }
 });
 
-
-
   
 router.get('/precautions', async (req, res) => {
-    const { indications } = req.query;
-  
-    if (!indications) {
+  const { indications } = req.query;
+
+  if (!indications) {
+    return res.status(400).json({ message: 'Please provide a valid list of indications.' });
+  }
+
+  try {
+    const indicationsArray = indications.split(',').map(indication => indication.toLowerCase());
+
+    if (indicationsArray.length === 0) {
       return res.status(400).json({ message: 'Please provide a valid list of indications.' });
     }
-  
-    try {
-      const indicationsArray = indications.split(',');
-  
-      if (indicationsArray.length === 0) {
-        return res.status(400).json({ message: 'Please provide a valid list of indications.' });
-      }
-  
-      // Find medicines that have ALL of the specified indications
-      const matchingMedicines = await Medicine.find({
-        'indications': { $all: indicationsArray }
-      });
-  
-      if (matchingMedicines.length === 0) {
-        res.json({ message: 'No precautions found for the specified indications.', indicationsArray });
-      } else {
-        // Extract precautions from the matching medicines
-        const precautions = matchingMedicines.reduce((precautions, medicine) => {
-          precautions.push(...medicine.precaution);
-          return precautions;
-        }, []);
-  
-        // Remove duplicates from the precautions array and exclude "NS"
-        const uniquePrecautions = [...new Set(precautions.filter(p => p !== 'NS'))];
-  
-        res.json(uniquePrecautions);
-      }
-    } catch (err) {
-      res.status(500).json({ message: err.message });
+
+    // Find medicines that have ANY of the specified indications (case-insensitive)
+    const matchingMedicines = await Medicine.find({
+      'indications': { $in: indicationsArray.map(i => new RegExp(i, 'i')) }
+    });
+
+    if (matchingMedicines.length === 0) {
+      return res.json({ message: 'No precautions found for the specified indications.', indicationsArray });
     }
+
+    // Extract precautions from the matching medicines
+    const precautions = matchingMedicines.reduce((precautions, medicine) => {
+      precautions.push(...medicine.precaution);
+      return precautions;
+    }, []);
+
+    // Remove duplicates from the precautions array and exclude "NS" (case-insensitive)
+    const uniquePrecautions = [...new Set(precautions.filter(p => p.toLowerCase() !== 'ns'))];
+
+    return res.json(uniquePrecautions);
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
 });
-  
+
+
+
+
 router.get('/filter', async (req, res) => {
     const { indications, precautions } = req.query;
   

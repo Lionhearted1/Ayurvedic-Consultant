@@ -22,7 +22,15 @@ const AutoTypingMessage = ({ condition, message }) => {
     };
   }, [message]);
 
+<<<<<<< HEAD
   return <div className={`${condition}`}>{typedMessage}</div>;
+=======
+  return (
+    <div className={`${condition}`}>
+      {typedMessage}
+    </div>
+  );
+>>>>>>> 857d5b906450c945348dceb576370665dcb1d6a4
 };
 
 export default AutoTypingMessage;

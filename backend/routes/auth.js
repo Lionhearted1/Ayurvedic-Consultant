@@ -6,6 +6,11 @@ const User = require('../models/User');
 router.post('/register', async (req, res) => {
   try {
     const { name, role, email, password } = req.body;
+
+    if (!name || !role || !email || !password) {
+      return res.status(400).json({ error: 'Missing required fields' });
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = new User({
@@ -16,28 +21,27 @@ router.post('/register', async (req, res) => {
     });
 
     await user.save();
-    res.redirect('/auth/login');
+    res.status(201).json({ status: 'User registered', name: user.name }); // Status 201 for "Created"
   } catch (error) {
     console.error(error);
-    res.redirect('/auth/register');
+    res.status(500).json({ error: 'Registration failed', message: error.message }); // Status 500 for "Internal Server Error" with an error message
   }
 });
 
 
-router.get('/login', (req, res) => {
-  res.render('login');
-});
+
 
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   const user = await User.findOne({ email });
 
   if (user && (await bcrypt.compare(password, user.password))) {
-    req.session.userId = user._id;
-    res.redirect('/dashboard');
+    res.status(200).json({ status: 'Login successful', name: user.name }); // Status 200 for "OK"
   } else {
-    res.redirect('/auth/login');
+    res.status(401).json({ error: 'Login failed' }); // Status 401 for "Unauthorized"
   }
 });
 
 module.exports = router;
+
+//Hello
