@@ -142,7 +142,7 @@ const Searchbar = (props) => {
     <>
       <AutoTypingMessage
         message="Hello World"
-        condition={props.autoTypeCondition}
+        condition={`text-white text-[2.5rem] md:text-[3rem] font-semibold ${props.autoTypeCondition}`}
       />
       <motion.div
         className={`search h-1/4 w-full flex justify-center items-center relative ${props.condition}`}
