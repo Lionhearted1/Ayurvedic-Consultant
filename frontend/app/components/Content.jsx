@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import AutoTypingMessage from "../search/components/AutoTypingMessage";
 
 
@@ -18,8 +19,10 @@ const Content = () => {
                 life. Join us on a journey of well-being rooted in the wisdom of
                 Ayurveda.
             </p>
+            <Link href="/login">
             <button className=" text-white text-[1rem] bg-green-800 bg-opacity-75 w-[auto] h-[auto]
             p-[0.5rem] rounded-lg  hover:bg-white hover:text-black md:text-[1.2rem] md:p-[1rem] lg:text-[1.4rem]">Get Started</button>
+            </Link>
         </div>
   );
 };
