@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import AutoTypingMessage from "./AutoTypingMessage";
 import axios from "axios";
 import Suggestions from "./Suggestions";
+import { BiSearchAlt } from "react-icons/bi";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 const Searchbar = (props) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -109,7 +111,7 @@ const Searchbar = (props) => {
   };
 
 
-  const clearInput = () => {
+  const handleClear = () => {
     setQuery("");
     setSuggestions([]);
     setError(null);
@@ -161,6 +163,7 @@ const Searchbar = (props) => {
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.75 }}
         >
+          <BiSearchAlt className="mr-2 text-white" />
           <input
             type="text"
             className="bg-transparent focus:border-none focus:outline-none w-full text-white"
@@ -174,11 +177,11 @@ const Searchbar = (props) => {
           />
           {query && (
           <button
-            className="absolute top-1 right-2 text-gray-500 cursor-pointer"
-            onClick={clearInput}
+            className="absolute flex items-center  top-1 right-2 text-gray-500 cursor-pointer"
+            onClick={handleClear}
           >
             {/* Add your close button or icon here */}
-            X
+            <AiOutlineCloseCircle className="text-lg" /> 
           </button>
         )}
         </motion.div>

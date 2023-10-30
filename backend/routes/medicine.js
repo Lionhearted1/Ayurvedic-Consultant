@@ -55,7 +55,7 @@ router.get('/search-indications', async (req, res) => {
     }
 });
   
-router.get('/autocomplete', async (req, res) => {
+router.get('/autocompleteindications', async (req, res) => {
   const { query } = req.query;
 
   try {
@@ -127,6 +127,54 @@ router.get('/precautions', async (req, res) => {
     return res.status(500).json({ message: err.message });
   }
 });
+
+router.get('/medicines', async (req, res) => {
+  const { med } = req.query;
+
+  if (!med) {
+    return res.status(400).json({ message: 'Please provide a valid search query.' });
+  }
+
+  // Convert user input to lowercase for case-insensitive search
+  const medicines = med.split(',').map(medicine => medicine.trim().toLowerCase());
+
+  try {
+    // Use $in operator to find medicines that match any of the specified medicines in the array
+    const matchingMedicines = await Medicine.find({ 'medicineName': { $in: medicines } });
+
+    if (matchingMedicines.length === 0) {
+      return res.status(404).json({ message: 'No medicines found for the specified search query.' });
+    }
+
+    return res.json(matchingMedicines);
+  } catch (err) {
+    return res.status(500).json({ message: err.message });
+  }
+});
+
+router.get('/autocompletemedicines', async (req, res) => {
+  const { query } = req.query;
+
+  try {
+    // Use text search to find medicines based on the user's query (case-insensitive)
+    const matchingMedicines = await Medicine.find({ $text: { $search: query } });
+
+    if (matchingMedicines.length === 0) {
+      return res.status(404).json({ message: 'No matching medicines found.' }); // 404 for "Not Found"
+    } else {
+      // Extract the 'medicineName' field from the matching medicines and create an array
+      const medicinesArray = matchingMedicines.map(medicine => medicine.medicineName);
+
+      // Remove duplicates from the medicines array and return it
+      const uniqueMedicines = [...new Set(medicinesArray)];
+
+      return res.status(200).json(uniqueMedicines); // 200 for "OK"
+    }
+  } catch (err) {
+    return res.status(500).json({ message: err.message }); // 500 for "Internal Server Error"
+  }
+});
+
 
 router.get('/filter', async (req, res) => {
   const { indications, precautions } = req.query;
