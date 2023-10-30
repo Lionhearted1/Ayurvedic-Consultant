@@ -2,11 +2,10 @@ const express = require('express');
 const router = express.Router();
 const Medicine = require('../models/medicine');
 
-
 router.get('/', async (req, res) => {
   try {
     const medicines = await Medicine.find();
-    res.json(medicines);
+    res.status(404).json(medicines);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -24,9 +23,9 @@ router.get('/search', async (req, res) => {
       });
   
       if (matchingMedicines.length === 0) {
-        res.json({ message: 'No matching medicines found.' });
+        res.status(404).json({ message: 'No matching medicines found.' });
       } else {
-        res.json(matchingMedicines);
+        res.status(200).json(matchingMedicines);
       }
     } catch (err) {
       res.status(500).json({ message: err.message });
@@ -47,9 +46,9 @@ router.get('/search-indications', async (req, res) => {
       });
   
       if (matchingMedicines.length === 0) {
-        res.json({ message: 'No matching indications found.' });
+        res.status(404)({ message: 'No matching indications found.' });
       } else {
-        res.json(matchingMedicines);
+        res.status(200)(matchingMedicines);
       }
     } catch (err) {
       res.status(500).json({ message: err.message });
@@ -83,7 +82,6 @@ router.get('/autocomplete', async (req, res) => {
   }
 });
 
-  
 router.get('/precautions', async (req, res) => {
   const { indications } = req.query;
 
@@ -103,10 +101,6 @@ router.get('/precautions', async (req, res) => {
       'indications': { $in: indicationsArray.map(i => new RegExp(i, 'i')) }
     });
 
-    if (matchingMedicines.length === 0) {
-      return res.json({ message: 'No precautions found for the specified indications.', indicationsArray });
-    }
-
     // Extract precautions from the matching medicines
     const precautions = matchingMedicines.reduce((precautions, medicine) => {
       precautions.push(...medicine.precaution);
@@ -116,45 +110,46 @@ router.get('/precautions', async (req, res) => {
     // Remove duplicates from the precautions array and exclude "NS" (case-insensitive)
     const uniquePrecautions = [...new Set(precautions.filter(p => p.toLowerCase() !== 'ns'))];
 
+    if (uniquePrecautions.length === 0) {
+      return res.status(404).json({ message: 'No precautions found for the specified indications.' });
+    }
+
     return res.json(uniquePrecautions);
   } catch (err) {
     return res.status(500).json({ message: err.message });
   }
 });
 
-
-
-
 router.get('/filter', async (req, res) => {
-    const { indications, precautions } = req.query;
-  
-    if (!indications) {
-      return res.status(400).json({ message: 'Please provide a valid array of indications.' });
-    }
-  
-    try {
-      const indicationsArray = indications.split(',');
-      let query = {
-        'indications': { $in: indicationsArray },
-      };
-  
-      if (precautions) {
-        const precautionsArray = precautions.split(',');
-        if (precautionsArray.length > 0) {
-          query['precaution'] = { $nin: precautionsArray };
-        }
+  const { indications, precautions } = req.query;
+
+  if (!indications) {
+    return res.status(400).json({ message: 'Please provide a valid array of indications.' });
+  }
+
+  try {
+    const indicationsArray = indications.split(',').map(indication => new RegExp(indication, 'i'));
+    let query = {
+      'indications': { $in: indicationsArray },
+    };
+
+    if (precautions) {
+      const precautionsArray = precautions.split(',').map(precaution => new RegExp(precaution, 'i'));
+      if (precautionsArray.length > 0) {
+        query['precaution'] = { $nin: precautionsArray };
       }
-  
-      const matchingMedicines = await Medicine.find(query);
-  
-      if (matchingMedicines.length === 0) {
-        res.json({ message: 'No medicines found for the specified indications and precautions.' });
-      } else {
-        res.json(matchingMedicines);
-      }
-    } catch (err) {
-      res.status(500).json({ message: err.message });
     }
+
+    const matchingMedicines = await Medicine.find(query);
+
+    if (matchingMedicines.length === 0) {
+      res.status(404).json({ message: 'No medicines found for the specified indications and precautions.' });
+    } else {
+      res.status(200).json(matchingMedicines);
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
   
 module.exports = router;

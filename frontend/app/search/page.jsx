@@ -9,7 +9,7 @@ const Page = () => {
   
   //for visbilty of checkbox and confirm button
   const [isInputFocused, setInputFocused] = useState(false);
-  const [isPrecAvailable, setPrecAvailable] = useState(false);
+  const [isPrecAvailable, setPrecAvailable] = useState(true);
 
   //for visibility
   const handleFocus = (focus) => {
