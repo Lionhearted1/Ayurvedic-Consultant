@@ -9,7 +9,7 @@ const Page = () => {
   
   //for visbilty of checkbox and confirm button
   const [isInputFocused, setInputFocused] = useState(false);
-  const [isPrecAvailable, setPrecAvailable] = useState(true);
+  const [isPrecAvailable, setPrecAvailable] = useState(false);
 
   //for visibility
   const handleFocus = (focus) => {
@@ -19,7 +19,6 @@ const Page = () => {
   //animation variables
   const searchAni = `${isInputFocused || isPrecAvailable ? "slide-up" : ""}`;
   const precAvail = `${isInputFocused || isPrecAvailable ? "" : "hidden"}`;
-  const autoCmplt = `${isInputFocused ? "" : "hidden"}`;
   const autoType = `${isInputFocused || isPrecAvailable ? "hidden" : ""}`;
 
 
@@ -37,7 +36,6 @@ const Page = () => {
           <Searchbar
             condition={searchAni}
             autoTypeCondition={autoType}
-            autoComplete={autoCmplt}
             onInputFocus={handleFocus}
             onSearchChange={handleSearchChange}
             value={searchTerm}

@@ -30,5 +30,9 @@
   filter: blur(8px);
 }
 
+maxh{
+  max-height: 10rem;
+}
+
 @tailwind utilities;
 

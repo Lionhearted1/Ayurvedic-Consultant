@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const cors = require('cors');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const medicineRoutes = require('./routes/medicine');
@@ -23,6 +24,7 @@ async function connectToDatabase() {
 
 connectToDatabase();
 
+app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(bodyParser.json());
 app.use('/medicines', medicineRoutes);
 app.use('/auth', authRoutes);
