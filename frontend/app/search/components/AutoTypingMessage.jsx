@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { motion } from "framer-motion"; 
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
-const AutoTypingMessage = ({ condition,message }) => {
-  const [typedMessage, setTypedMessage] = useState('');
+const AutoTypingMessage = ({ condition, message }) => {
+  const [typedMessage, setTypedMessage] = useState("");
 
   useEffect(() => {
     let currentCharacter = 0;
@@ -15,18 +15,14 @@ const AutoTypingMessage = ({ condition,message }) => {
       } else {
         clearInterval(typingInterval);
       }
-    }, 100); 
+    }, 100);
 
     return () => {
       clearInterval(typingInterval);
     };
   }, [message]);
 
-  return (
-    <div className={`text-white text-[2.5rem] md:text-[3rem] font-semibold ${condition}`}>
-      {typedMessage}
-    </div>
-  );
+  return <div className={`${condition}`}>{typedMessage}</div>;
 };
 
 export default AutoTypingMessage;

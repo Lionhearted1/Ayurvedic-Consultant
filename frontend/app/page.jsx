@@ -1,12 +1,18 @@
+"use client";
 import Link from "next/link";
 import React from "react";
+import AutoTypingMessage from "./search/components/AutoTypingMessage";
 
 const page = () => {
   return (
     <>
       <div className="wrapp">
         <div className="w-full h-full flex flex-col items-center content-between justify-center space-y-[3rem]">
-          <h1 className=" text-[2rem] text-white md:text-[3rem]">Welcome</h1>
+          {/* <h1 className=" text-[2rem] text-white md:text-[3rem]">Welcome</h1> */}
+          <AutoTypingMessage
+            message="Welcome..."
+            condition={"text-[2rem] text-white md:text-[3rem]"}
+          />
           <p className=" text-white text-[1rem] md:text-[1.4rem] lg:text-[1.6rem]">
             Our Ayurvedic page is a holistic wellness hub, dedicated to the
             ancient healing tradition of Ayurveda. Explore the timeless wisdom
