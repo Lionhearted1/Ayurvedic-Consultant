@@ -23,7 +23,7 @@ const AutoTypingMessage = ({ condition,message }) => {
   }, [message]);
 
   return (
-    <div className={`${condition}`}>
+    <div className={`text-white text-[2.5rem] md:text-[3rem] font-semibold ${condition}`}>
       {typedMessage}
     </div>
   );
