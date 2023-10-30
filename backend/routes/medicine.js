@@ -89,19 +89,24 @@ router.get('/precautions', async (req, res) => {
     return res.status(400).json({ message: 'Please provide a valid list of indications.' });
   }
 
-  // Remove trailing commas from indications
-  const sanitizedIndications = indications.replace(/,+$/, '');
+  // Extract the indications from the query parameter
+  const indicationList = indications.split(',').map(indication => {
+    // Filter out non-alphabetic characters from each indication
+    const alphabeticIndication = indication.replace(/[^a-zA-Z]/g, '');
+    return alphabeticIndication.toLowerCase();
+  });
+
+  // Remove empty indications
+  const validIndications = indicationList.filter(indication => indication.length > 0);
+
+  if (validIndications.length === 0) {
+    return res.status(400).json({ message: 'Please provide a valid list of indications.' });
+  }
 
   try {
-    const indicationsArray = sanitizedIndications.split(',').map(indication => indication.toLowerCase());
-
-    if (indicationsArray.length === 0) {
-      return res.status(400).json({ message: 'Please provide a valid list of indications.' });
-    }
-
     // Find medicines that have ANY of the specified indications (case-insensitive)
     const matchingMedicines = await Medicine.find({
-      'indications': { $in: indicationsArray.map(i => new RegExp(i, 'i')) }
+      'indications': { $in: validIndications.map(i => new RegExp(i, 'i')) }
     });
 
     // Extract precautions from the matching medicines
@@ -130,14 +135,26 @@ router.get('/filter', async (req, res) => {
     return res.status(400).json({ message: 'Please provide a valid array of indications.' });
   }
 
+  // Helper function to sanitize and remove trailing commas
+  const sanitizeQuery = (queryParam) => {
+    // Filter out non-alphabetic characters and special characters
+    return queryParam.split(',').map(param => param.replace(/[^a-zA-Z\s/,/-]/g, '').trim());
+  };
+
   try {
-    const indicationsArray = indications.split(',').map(indication => new RegExp(indication, 'i'));
+    // Sanitize and remove trailing commas from indications
+    const sanitizedIndications = sanitizeQuery(indications);
+    const indicationsArray = sanitizedIndications.map(indication => new RegExp(indication, 'i'));
+
+    // Construct the query with sanitized indications
     let query = {
       'indications': { $in: indicationsArray },
     };
 
     if (precautions) {
-      const precautionsArray = precautions.split(',').map(precaution => new RegExp(precaution, 'i'));
+      // Sanitize and remove trailing commas from precautions
+      const sanitizedPrecautions = sanitizeQuery(precautions);
+      const precautionsArray = sanitizedPrecautions.map(precaution => new RegExp(precaution, 'i'));
       if (precautionsArray.length > 0) {
         query['precaution'] = { $nin: precautionsArray };
       }
@@ -146,13 +163,16 @@ router.get('/filter', async (req, res) => {
     const matchingMedicines = await Medicine.find(query);
 
     if (matchingMedicines.length === 0) {
-      res.status(404).json({ message: 'No medicines found for the specified indications and precautions.' });
+      return res.status(404).json({ message: 'No medicines found for the specified indications and precautions.' });
     } else {
-      res.status(200).json(matchingMedicines);
+      return res.status(200).json(matchingMedicines);
     }
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    return res.status(500).json({ message: err.message });
   }
 });
+
+
+
   
 module.exports = router;
