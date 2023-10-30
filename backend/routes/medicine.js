@@ -126,35 +126,37 @@ router.get('/precautions', async (req, res) => {
 
 
 router.get('/filter', async (req, res) => {
-    const { indications, precautions } = req.query;
-  
-    if (!indications) {
-      return res.status(400).json({ message: 'Please provide a valid array of indications.' });
-    }
-  
-    try {
-      const indicationsArray = indications.split(',');
-      let query = {
-        'indications': { $in: indicationsArray },
-      };
-  
-      if (precautions) {
-        const precautionsArray = precautions.split(',');
-        if (precautionsArray.length > 0) {
-          query['precaution'] = { $nin: precautionsArray };
-        }
+  const { indications, precautions } = req.query;
+
+  if (!indications) {
+    return res.status(400).json({ message: 'Please provide a valid array of indications.' });
+  }
+
+  try {
+    const indicationsArray = indications.split(',');
+    let query = {
+      'indications': { $in: indicationsArray },
+    };
+
+    if (precautions) {
+      const precautionsArray = precautions.split(',');
+      if (precautionsArray.length > 0) {
+        query['precaution'] = { $nin: precautionsArray };
       }
-  
-      const matchingMedicines = await Medicine.find(query);
-  
-      if (matchingMedicines.length === 0) {
-        res.json({ message: 'No medicines found for the specified indications and precautions.' });
-      } else {
-        res.json(matchingMedicines);
-      }
-    } catch (err) {
-      res.status(500).json({ message: err.message });
     }
+
+    const matchingMedicines = await Medicine.find(query);
+
+    if (matchingMedicines.length === 0) {
+      res.json({ message: 'No medicines found for the specified indications and precautions.' });
+    } else {
+      res.json(matchingMedicines);
+    }
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
 });
+
+
   
 module.exports = router;

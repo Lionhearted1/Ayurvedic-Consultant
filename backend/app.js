@@ -24,7 +24,7 @@ async function connectToDatabase() {
 
 connectToDatabase();
 
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors());
 app.use(bodyParser.json());
 app.use('/medicines', medicineRoutes);
 app.use('/auth', authRoutes);
@@ -32,3 +32,4 @@ app.use('/auth', authRoutes);
 app.listen(3002, function () {
   console.log('Server is running on port 3002');
 });
+
