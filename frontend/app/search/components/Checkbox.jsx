@@ -11,7 +11,7 @@ const Checkbox = (props) => {
   useEffect(() => {
     // Fetch data from an API using Axios
     axios
-      .get("http://localhost:3002/medicines/precautions?indications=Nadivrana")
+      .get("http://localhost:3002/medicines/precautions?indications=jvara")
       .then((response) => {
         setItems(response.data);
       })
