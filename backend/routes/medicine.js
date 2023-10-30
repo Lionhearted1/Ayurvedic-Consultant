@@ -89,8 +89,11 @@ router.get('/precautions', async (req, res) => {
     return res.status(400).json({ message: 'Please provide a valid list of indications.' });
   }
 
+  // Remove trailing commas from indications
+  const sanitizedIndications = indications.replace(/,+$/, '');
+
   try {
-    const indicationsArray = indications.split(',').map(indication => indication.toLowerCase());
+    const indicationsArray = sanitizedIndications.split(',').map(indication => indication.toLowerCase());
 
     if (indicationsArray.length === 0) {
       return res.status(400).json({ message: 'Please provide a valid list of indications.' });
