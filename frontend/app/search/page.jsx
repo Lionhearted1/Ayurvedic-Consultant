@@ -4,9 +4,10 @@ import Searchbar from "./components/Searchbar";
 import Checkbox from "./components/Checkbox";
 import { motion } from "framer-motion";
 import ConfirmBtn from "./components/ConfirmBtn";
+import axios from "axios";
+
 
 const Page = () => {
-  
   //for visbilty of checkbox and confirm button
   const [isInputFocused, setInputFocused] = useState(false);
   const [isPrecAvailable, setPrecAvailable] = useState(true);
@@ -21,14 +22,41 @@ const Page = () => {
   const precAvail = `${isInputFocused || isPrecAvailable ? "" : "hidden"}`;
   const autoType = `${isInputFocused || isPrecAvailable ? "hidden" : ""}`;
 
-
-  
   //for search-bar
   const [searchTerm, setSearchTerm] = useState("");
   const handleSearchChange = (value) => {
     setSearchTerm(value);
   };
 
+  //for prec-items
+  const [precTerm, setPrecTerm] = useState("");
+  const handlePrecterm = (value) => {
+    setPrecTerm(value);
+  };
+
+  //for confirm
+  const [url,setURL]=useState("")
+
+  useEffect(() => {
+    prepareURL()
+  }, [searchTerm, precTerm]);
+
+  const prepareURL=()=>{
+    setURL(`?indications=${encodeURIComponent(searchTerm)}&precautions=${encodeURIComponent(precTerm)}`)
+  }
+
+  const conOnClickHandle = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3002/medicines/filter${url}`);
+      const data = response.data;
+      console.log(data);
+    } catch (error) {
+      console.error("Error:", error);
+    }
+    console.log(url)
+  };
+
+  
   return (
     <>
       <div className="wrap">
@@ -38,14 +66,19 @@ const Page = () => {
             autoTypeCondition={autoType}
             onInputFocus={handleFocus}
             onSearchChange={handleSearchChange}
-            value={searchTerm}
           />
 
-          <Checkbox condition={precAvail} />
-        
+          <Checkbox 
+          condition={precAvail} 
+          handlePrecterm={handlePrecterm} 
+          searchTerm={searchTerm}
+          />
 
+          <ConfirmBtn 
+          condition={precAvail} 
+          onClick={conOnClickHandle}
+          />
 
-          <ConfirmBtn condition={precAvail} />
         </div>
       </div>
     </>

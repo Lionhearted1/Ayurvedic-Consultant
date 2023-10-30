@@ -34,7 +34,7 @@ const Searchbar = (props) => {
     setError(null); // Reset error state
 
     try {
-      const response = await axios.get(`http://localhost:3002/medicines/autocomplete?query=${term}`);
+      const response = await axios.get(`http://localhost:3002/medicines/autocompleteindications?query=${term}`);
       if (response.status === 200) {
         const data = response.data;
         
@@ -65,6 +65,8 @@ const Searchbar = (props) => {
       setSuggestions([]);
     }
 
+    
+
   };
 
   const handleSuggestionClick = (suggestion) => {
@@ -79,8 +81,7 @@ const Searchbar = (props) => {
     
     setSuggestions([]);
     inputRef.current.focus();
-    console.log(newQuery); 
-    
+    props.onSearchChange(newQuery)
 
   };
 

@@ -6,19 +6,43 @@ import Box from "./Box";
 const Checkbox = (props) => {
 
   const [items, setItems] = useState([]);
+  const [error, setError] = useState(null);
   const [selectedItems, setSelectedItems] = useState([]);
+  const [precQuery, setPrecQuery] = useState('');
 
   useEffect(() => {
-    // Fetch data from an API using Axios
+    fetchData();
+  }, [props.searchTerm]);
+
+  useEffect(() => {
+    prepareQuery();
+  }, [selectedItems]);
+
+  const prepareQuery=()=>{
+    setPrecQuery(selectedItems.join(','));
+  }
+
+  useEffect(()=>{
+    props.handlePrecterm(precQuery);
+  },[precQuery])
+
+  const fetchData = () => {
     axios
-      .get("http://localhost:3002/medicines/precautions?indications=jvara")
+      .get(`http://localhost:3002/medicines/precautions?indications=${props.searchTerm}`)
       .then((response) => {
-        setItems(response.data);
+        if (response.status === 200) {
+          setItems(response.data);
+          setError(null); // Reset error state
+        } else {
+          setError(`Failed to fetch data. Status code: ${response.status}`);
+        }
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
+        setError("Failed to fetch data. Please try again.");
       });
-  }, []);
+
+  };
 
   const toggleItem = (item) => {
     setSelectedItems((prevSelectedItems) => {

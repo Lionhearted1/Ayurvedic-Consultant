@@ -14,6 +14,7 @@ const ConfirmBtn = (props) => {
         <button
           className=" text-white bg-green-800 bg-opacity-75 w-[auto] h-[auto]
          rounded-lg text-[1.1rem]  hover:bg-white hover:text-black hover:font-semibold px-[1rem] py-[0.5rem] lg:text-[1.2rem]"
+        onClick={props.onClick}
         >
           Confirm
         </button>
