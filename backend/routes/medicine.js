@@ -133,13 +133,13 @@ router.get('/filter', async (req, res) => {
   }
 
   try {
-    const indicationsArray = indications.split(',');
+    const indicationsArray = indications.split(',').map(indication => new RegExp(indication, 'i'));
     let query = {
       'indications': { $in: indicationsArray },
     };
 
     if (precautions) {
-      const precautionsArray = precautions.split(',');
+      const precautionsArray = precautions.split(',').map(precaution => new RegExp(precaution, 'i'));
       if (precautionsArray.length > 0) {
         query['precaution'] = { $nin: precautionsArray };
       }
@@ -156,6 +156,7 @@ router.get('/filter', async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 });
+
 
 
   
