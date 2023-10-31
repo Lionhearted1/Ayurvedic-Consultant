@@ -1,47 +1,121 @@
-const express = require('express');
-const router = express.Router();
-const bcrypt = require('bcrypt');
-const User = require('../models/User');
+"use client"
+import React, { useState } from 'react';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from 'axios'; // Import Axios
+import { useRouter } from 'next/router'; // Import useRouter from Next.js
 
-router.post('/register', async (req, res) => {
-  try {
-    const { name, role, email, password } = req.body;
+import FormWrapper from '../components/FormWrapper';
+import FormInput from '../components/FormInput';
+import FormButton from '../components/FormButton';
 
-    if (!name || !role || !email || !password) {
-      return res.status(400).json({ error: 'Missing required fields' });
+const Page = () => {
+  const router = useRouter(); // Initialize the router
+
+  const [values, setValues] = useState({
+    name: router.query.name || '', // Obtain name from router or set to an empty string
+    role: router.query.role || '', // Obtain role from router or set to an empty string
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
+
+  const handleChange = (e) => {
+    setValues({
+      ...values,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (values.password !== values.confirmPassword) {
+      toast.error('Password and Confirm Password do not match');
+      return;
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    // Continue with your form submission logic here if the passwords match.
+  };
 
-    const user = new User({
-      name,
-      role,
-      email,
-      password: hashedPassword,
-    });
+  const buttonOnchange = async () => {
+    if (values.password !== values.confirmPassword) {
+      toast.error('Password and Confirm Password do not match');
+      return;
+    }
 
-    await user.save();
-    res.status(201).json({ status: 'User registered', name: user.name }); // Status 201 for "Created"
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Registration failed', message: error.message }); // Status 500 for "Internal Server Error" with an error message
-  }
-});
+    if (!(values.name && values.role && values.email && values.password)) {
+      toast.error('Please fill in all the required fields');
+      return;
+    }
 
+    // Prepare the data to send
+    const data = {
+      name: values.name,
+      role: values.role,
+      email: values.email,
+      password: values.password,
+    };
 
+    try {
+      // Send a POST request to your server using async/await
+      const response = await axios.post('/your-api-endpoint', data);
 
+      // Handle a successful response
+      toast.success('Registration Successful');
+      // Optionally, you can reset the form fields here
+      setValues({
+        name: '',
+        role: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+      });
+    } catch (error) {
+      // Handle an error response
+      toast.error('Registration Failed');
+      console.error('Error:', error);
+    }
+  };
 
-router.post('/login', async (req, res) => {
-  const { email, password } = req.body;
-  const user = await User.findOne({ email });
+  return (
+    <>
+      <form onSubmit={handleSubmit}>
+        <ToastContainer />
+        <FormWrapper heading="Register">
+          
+          <FormInput
+            label="Email"
+            type="email"
+            name="email"
+            value={values.email}
+            onChange={handleChange}
+          />
+          <FormInput
+            label="Password"
+            type="password"
+            name="password"
+            value={values.password}
+            onChange={handleChange}
+          />
+          <FormInput
+            label="Confirm Password"
+            type="password"
+            name="confirmPassword"
+            value={values.confirmPassword}
+            onChange={handleChange}
+          />
+          <FormButton
+            buttonText="Register"
+            registerText="Already have an account?"
+            linkText="Login"
+            href="/login"
+            onClick={buttonOnchange}
+          />
+        </FormWrapper>
+      </form>
+    </>
+  );
+};
 
-  if (user && (await bcrypt.compare(password, user.password))) {
-    res.status(200).json({ status: 'Login successful', name: user.name }); // Status 200 for "OK"
-  } else {
-    res.status(401).json({ error: 'Login failed' }); // Status 401 for "Unauthorized"
-  }
-});
-
-module.exports = router;
-
-//Hello
+export default Page;
