@@ -1,11 +1,24 @@
 "use client"
 import React, { useState } from 'react';
-
 import FormWrapper from '../components/FormWrapper';
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
+import DropdownInput from '../components/DropdownInput';
+
 
 const Page = () => {
+
+
+  const [selectedItem, setSelectedItem] = useState(""); // State to track the selected item
+
+  const handleSelectChange = (e) => {
+    setSelectedItem(e.target.value); // Update the selected item when the dropdown value changes
+  };
+
+  const handleDropdownChange = (e) => {
+    // Handle the dropdown change logic here
+    console.log("Selected item:", e.target.value);
+  };
 
   const [values, setValues] = useState({
     email: '', 
@@ -34,34 +47,22 @@ const Page = () => {
       <form className onSubmit={handleSubmit}>
     <FormWrapper heading="Register">
       <FormInput 
-        label="Email"
-        type="email" 
-        name="email"
+        label="Name"
+        type="" 
+        name=""
         value={values.email}
         onChange={handleChange} 
       />
 
-      <FormInput
-        label="Password"
-        type="password"
-        name="password"
-        value={values.password}
-        onChange={handleChange}
-      />
-
-      <FormInput
-        label="Confirm Password" 
-        type="password"
-        name="confirmPassword"
-        value={values.confirmPassword} 
-        onChange={handleChange}
-      />
+      <DropdownInput 
+        onChange={handleDropdownChange} label="Role"
+       />
 
       <FormButton 
-        buttonText="Register"
+        buttonText="Next"
         registerText="Already have an account?"
         linkText="Login"
-        href="/login"
+        href="/register-1"
         onClick={buttonOnchange}
       />
     </FormWrapper>

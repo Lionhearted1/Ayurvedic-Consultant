@@ -2,10 +2,11 @@
 import React, { useEffect, useState } from "react";
 import Searchbar from "./components/Searchbar";
 import Checkbox from "./components/Checkbox";
-import { motion } from "framer-motion";
 import ConfirmBtn from "./components/ConfirmBtn";
 import axios from "axios";
 import AutoTypingMessage from "./components/AutoTypingMessage";
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const Page = () => {
@@ -32,21 +33,30 @@ const Page = () => {
     setURL(`?indications=${encodeURIComponent(searchTerm)}&precautions=${encodeURIComponent(precTerm)}`)
   }
 
-  const [isClicked,setIsCLicked]=useState(false)
 
-  const forAutoOnclick=(value)=>{
-    setIsCLicked(value)
-  }
   
   const conOnClickHandle = async () => {
+    let data;
+
     try {
-      const response = await axios.get(`http://localhost:3002/medicines/filter${url}`);
-      const data = response.data;
+      const response = await axios.get(`http://localhost:3002/medicines/filter${url}`
+      ,{validateStatus: function (status) {
+        return status < 500; // Resolve only if the status code is less than 500
+      }});
+      if (response.status === 200) {
+      data = response.data;
+      toast.success(data, { autoClose: 2000 });
       console.log(data);
-    } catch (error) {
-      console.error("Error:", error);
+    } else {
+      data = response.data;
+      console.log(data.message)
+      toast.error(data.message, { autoClose: 2000 });
     }
-    console.log(url)
+  }
+    catch (error) {
+      console.error("Error:", error);
+      toast.error("An error occurred. Please try again.", { autoClose: 2000 });
+    }
   };
 
   //for visbilty of checkbox and confirm button
@@ -66,9 +76,10 @@ const Page = () => {
   
   return (
     <>
+       <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
       <div className="wrap">
         <div className="back">
-          {!(isInputFocused || isPrecAvailable || isClicked) &&
+          {!(isInputFocused || isPrecAvailable ) &&
         <AutoTypingMessage
         message="Hello World"
         condition={`text-white text-[2.5rem] md:text-[3rem] font-semibold`}
@@ -85,10 +96,10 @@ const Page = () => {
           handlePrec={handlePrec}
           />
         }
-        {(isInputFocused || isPrecAvailable) &&
+        {(searchTerm.length>0 && isPrecAvailable) &&
           <ConfirmBtn 
           onClick={conOnClickHandle}
-          forAutoOnclick={forAutoOnclick}
+
           />
         }
         </div>

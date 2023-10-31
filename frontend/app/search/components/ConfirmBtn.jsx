@@ -2,10 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 
 const ConfirmBtn = (props) => {
-  const conOnClickHandle=()=>{
-    props.onClick();
-    props.forAutoOnclick(true)
-  }
+  
 
   return (
     <>
@@ -20,7 +17,7 @@ const ConfirmBtn = (props) => {
           className=" text-white bg-green-800 bg-opacity-75 w-[auto] h-[auto]
          rounded-lg text-[1.1rem]  hover:bg-white hover:text-black hover:font-semibold px-[1rem] py-[0.5rem] lg:text-[1.2rem]"
         onClick={props.onClick}
-        onBlur={props.forAutoOnclick(false)}
+
         >
           Confirm
         </button>

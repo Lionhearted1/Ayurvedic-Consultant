@@ -180,7 +180,7 @@ router.get('/filter', async (req, res) => {
   const { indications, precautions } = req.query;
 
   if (!indications) {
-    return res.status(400).json({ message: 'Please provide a valid array of indications.' });
+    return res.status(400).json({ message: 'Please provide a list of indications.' });
   }
 
   // Helper function to sanitize and remove trailing commas
