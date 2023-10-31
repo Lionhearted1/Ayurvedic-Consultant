@@ -55,18 +55,16 @@ const Searchbar = (props) => {
   const handleInputChange = (e) => {
     const newQuery = e.target.value;
     setQuery(newQuery);
+    props.onSearchChange(query)
     setError(null);
     const terms = newQuery.split(",");
     const currentTerm = terms[terms.length - 1].trim();
-    if (currentTerm) {
+    if (currentTerm && isFocused) {
       fetchDataFromSource(currentTerm);
       setSelectedSuggestionIndex(-1);
     } else {
       setSuggestions([]);
     }
-
-    
-
   };
 
   const handleSuggestionClick = (suggestion) => {
@@ -117,6 +115,7 @@ const Searchbar = (props) => {
     setSuggestions([]);
     setError(null);
     inputRef.current.focus();
+    props.onSearchChange('')
   };
 
   useEffect(() => {
