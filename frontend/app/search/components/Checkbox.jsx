@@ -47,10 +47,6 @@ const Checkbox = (props) => {
     props.handlePrecterm(precQuery);
   },[precQuery])
 
-  useEffect(()=>{
-    console.log(props.searchTerm)
-  })
-
 
   const fetchData = async () => {
     let data;
@@ -68,12 +64,15 @@ const Checkbox = (props) => {
       if (response.status === 200) {
         data = response.data;
         setItems(data);
+        props.handlePrec(true)
         setResError(null);
       } else if (response.status === 404) {
         data = response.data;
+        props.handlePrec(true)
         setResError(data.message);
         setItems([]);
       } else {
+        props.handlePrec(false)
         data = response.data;
         setResError(data.message)
       }
@@ -101,7 +100,7 @@ const Checkbox = (props) => {
   return (
     <>
       <motion.div
-        className={`checkBox h-2/4 ${props.condition} justify-center items-center flex flex-col`}
+        className={`checkBox h-2/4 justify-center items-center flex flex-col`}
         initial={{ opacity: 0, y: 10 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 10 }}
@@ -133,7 +132,7 @@ const Checkbox = (props) => {
               />
               ))}
               </div>  
-            {reserror && <div className="w-full text-center text-white text-[1.2rem] md:text-[2rem] font-semibold"> {reserror} </div>}    
+            {reserror && <div className="w-full text-center text-white text-[1.1rem] md:text-[1.5rem] font-semibold"> {reserror} </div>}    
 
       </motion.div>
     </>

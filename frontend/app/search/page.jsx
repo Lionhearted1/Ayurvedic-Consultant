@@ -32,6 +32,12 @@ const Page = () => {
     setURL(`?indications=${encodeURIComponent(searchTerm)}&precautions=${encodeURIComponent(precTerm)}`)
   }
 
+  const [isClicked,setIsCLicked]=useState(false)
+
+  const forAutoOnclick=(value)=>{
+    setIsCLicked(value)
+  }
+  
   const conOnClickHandle = async () => {
     try {
       const response = await axios.get(`http://localhost:3002/medicines/filter${url}`);
@@ -47,44 +53,44 @@ const Page = () => {
   const [isInputFocused, setInputFocused] = useState(false);
   const [isPrecAvailable, setPrecAvailable] = useState(false);
 
+
   //for visibility
   const handleFocus = (focus) => {
     setInputFocused(focus);
   };
 
-  //animation variables
-  const searchAni = `${isInputFocused || isPrecAvailable ? "slide-up" : ""}`;
-  const precAvail = `${isInputFocused || isPrecAvailable ? "" : "hidden"}`;
-  const autoType = `${isInputFocused || isPrecAvailable ? "hidden" : ""}`;
-
+  const handlePrec=(prec)=>{
+    setPrecAvailable(prec)
+  }
 
   
   return (
     <>
       <div className="wrap">
         <div className="back">
+          {!(isInputFocused || isPrecAvailable || isClicked) &&
         <AutoTypingMessage
         message="Hello World"
-        condition={`text-white text-[2.5rem] md:text-[3rem] font-semibold ${autoType}`}
-      />
+        condition={`text-white text-[2.5rem] md:text-[3rem] font-semibold`}
+      />}
+
           <Searchbar
-            condition={searchAni}
-            autoTypeCondition={autoType}
             onInputFocus={handleFocus}
             onSearchChange={handleSearchChange}
           />
-
+        {(isInputFocused || isPrecAvailable) &&
           <Checkbox 
-          condition={precAvail} 
           handlePrecterm={handlePrecterm} 
           searchTerm={searchTerm}
+          handlePrec={handlePrec}
           />
-
+        }
+        {(isInputFocused || isPrecAvailable) &&
           <ConfirmBtn 
-          condition={precAvail} 
           onClick={conOnClickHandle}
+          forAutoOnclick={forAutoOnclick}
           />
-
+        }
         </div>
       </div>
     </>

@@ -1,6 +1,5 @@
 import React, { useRef,useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import AutoTypingMessage from "./AutoTypingMessage";
 import axios from "axios";
 import Suggestions from "./Suggestions";
 import { BiSearchAlt } from "react-icons/bi";
@@ -32,14 +31,18 @@ const Searchbar = (props) => {
   const fetchDataFromSource = async (term) => {
     setLoading(true);
     setError(null); // Reset error state
-
+    let data
     try {
-      const response = await axios.get(`http://localhost:3002/medicines/autocompleteindications?query=${term}`);
+      const response = await axios.get(`http://localhost:3002/medicines/autocompleteindications?query=${term}`
+      ,{validateStatus: function (status) {
+        return status < 500; // Resolve only if the status code is less than 500
+      }});
       if (response.status === 200) {
-        const data = response.data;
+        data = response.data;
         setSuggestions(data);
       } else {
-        setError("Failed to fetch suggestions. Please try again.");
+        data = response.data;
+        setError(data.message);
         setSuggestions([]); // Clear suggestions
       }
     } catch (error) {
@@ -117,8 +120,32 @@ const Searchbar = (props) => {
     props.onSearchChange('')
   };
 
+  const [isUsingKeyboardNavigation,setIsUsingKeyboardNavigation]=useState(false)
+
   useEffect(() => {
-    if (suggestionsRef.current) {
+    const handleKeyDownEvent = (e) => {
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        setIsUsingKeyboardNavigation(true);
+      }
+    };
+
+    const handleKeyUpEvent = (e) => {
+      if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+        setIsUsingKeyboardNavigation(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDownEvent);
+    document.addEventListener("keyup", handleKeyUpEvent);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDownEvent);
+      document.removeEventListener("keyup", handleKeyUpEvent);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (suggestionsRef.current && isUsingKeyboardNavigation) {
       const suggestionElement = suggestionsRef.current.children[selectedSuggestionIndex];
       if (suggestionElement) {
         const containerHeight = suggestionsRef.current.clientHeight;
@@ -127,7 +154,7 @@ const Searchbar = (props) => {
         const scrollTop = suggestionsRef.current.scrollTop;
   
         // Define a decrease factor that's proportional to the number of elements.
-        const decreaseFactor = 0.2 - 0.105 * selectedSuggestionIndex; // Adjust this value as needed
+        const decreaseFactor = 0.5 - 0.1059 * selectedSuggestionIndex; // Adjust this value as needed
   
         // Calculate the scroll position to make the selected suggestion centered
         const centeredScrollTop = suggestionTop - (containerHeight * decreaseFactor);
@@ -142,12 +169,48 @@ const Searchbar = (props) => {
         }
       }
     }
-  }, [selectedSuggestionIndex]);
+  }, [selectedSuggestionIndex, isUsingKeyboardNavigation]);
+  
+  const handleWheel = (e) => {
+    if (isUsingKeyboardNavigation) {
+      // If using keyboard navigation, prevent wheel events from interfering
+      e.preventDefault();
+    } else {
+      if (suggestionsRef.current) {
+        const delta = e.deltaY;
+        const suggestionElement = suggestionsRef.current.children[selectedSuggestionIndex];
+        if (suggestionElement) {
+          e.preventDefault();
+          const containerHeight = suggestionsRef.current.clientHeight;
+          const suggestionHeight = suggestionElement.clientHeight;
+          const suggestionTop = suggestionElement.offsetTop;
+          const centeredScrollTop = suggestionTop - (containerHeight / 2 - suggestionHeight / 2);
+          const minScrollTop = 0;
+          const maxScrollTop = suggestionsRef.current.scrollHeight - containerHeight;
+  
+          const newScrollTop = suggestionsRef.current.scrollTop - delta;
+  
+          // Ensure the new scroll position is within bounds
+          suggestionsRef.current.scrollTop = Math.max(minScrollTop, Math.min(maxScrollTop, newScrollTop));
+        }
+      }
+    }
+  };
+
+  const handleArrowNavigation = (e) => {
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      setIsUsingKeyboardNavigation(true);
+    }
+  };
+
+  const handleBlurForMouse = () => {
+    setIsUsingKeyboardNavigation(false);
+  };
 
   return (
     <>
       <motion.div
-        className={`search h-1/4 w-full flex justify-center items-center relative ${props.condition}`}
+        className={`search h-1/4 w-full flex justify-center items-center relative`}
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 10 }}
@@ -172,7 +235,7 @@ const Searchbar = (props) => {
           />
           {query && (
           <button
-            className="absolute flex items-center  top-1 right-2 text-gray-500 cursor-pointer"
+            className="flex-end flex items-center  top-1 right-2 text-gray-500 cursor-pointer"
             onClick={handleClear}
           >
             {/* Add your close button or icon here */}
@@ -180,8 +243,8 @@ const Searchbar = (props) => {
           </button>
         )}
         </motion.div>
-        {loading && <p>Loading suggestions...</p>}
         <Suggestions 
+        loading={loading}
         error={error}
         suggestions={suggestions}
         setSelectedSuggestionIndex={setSelectedSuggestionIndex}
@@ -189,6 +252,9 @@ const Searchbar = (props) => {
         handleKeyDown={handleKeyDown}
         handleSuggestionClick={handleSuggestionClick}
         suggestionsRef={suggestionsRef}
+        onWheel={handleWheel}
+        onMouseEnter={handleArrowNavigation}
+        onBlur={handleBlurForMouse}
         />
       </motion.div>
     </>

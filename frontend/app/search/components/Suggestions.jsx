@@ -16,6 +16,10 @@ const Suggestions = (props) => {
           <SearchResult className="error-message" value={props.error} />
         )}
 
+        {props.loading && (
+          <SearchResult className="Loadingmessage" value="Loading..." />
+        )}
+
         {suggestions.map((suggestion, index) => (
           <SearchResult
             key={index}
