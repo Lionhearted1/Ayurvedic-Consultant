@@ -5,24 +5,11 @@ import Checkbox from "./components/Checkbox";
 import { motion } from "framer-motion";
 import ConfirmBtn from "./components/ConfirmBtn";
 import axios from "axios";
+import AutoTypingMessage from "./components/AutoTypingMessage";
 
 
 const Page = () => {
-  //for visbilty of checkbox and confirm button
-  const [isInputFocused, setInputFocused] = useState(false);
-  const [isPrecAvailable, setPrecAvailable] = useState(true);
-
-  //for visibility
-  const handleFocus = (focus) => {
-    setInputFocused(focus);
-  };
-
-  //animation variables
-  const searchAni = `${isInputFocused || isPrecAvailable ? "slide-up" : ""}`;
-  const precAvail = `${isInputFocused || isPrecAvailable ? "" : "hidden"}`;
-  const autoType = `${isInputFocused || isPrecAvailable ? "hidden" : ""}`;
-
-  //for search-bar
+ //for search-bar
   const [searchTerm, setSearchTerm] = useState("");
   const handleSearchChange = (value) => {
     setSearchTerm(value);
@@ -56,11 +43,30 @@ const Page = () => {
     console.log(url)
   };
 
+  //for visbilty of checkbox and confirm button
+  const [isInputFocused, setInputFocused] = useState(false);
+  const [isPrecAvailable, setPrecAvailable] = useState(false);
+
+  //for visibility
+  const handleFocus = (focus) => {
+    setInputFocused(focus);
+  };
+
+  //animation variables
+  const searchAni = `${isInputFocused || isPrecAvailable ? "slide-up" : ""}`;
+  const precAvail = `${isInputFocused || isPrecAvailable ? "" : "hidden"}`;
+  const autoType = `${isInputFocused || isPrecAvailable ? "hidden" : ""}`;
+
+
   
   return (
     <>
       <div className="wrap">
         <div className="back">
+        <AutoTypingMessage
+        message="Hello World"
+        condition={`text-white text-[2.5rem] md:text-[3rem] font-semibold ${autoType}`}
+      />
           <Searchbar
             condition={searchAni}
             autoTypeCondition={autoType}

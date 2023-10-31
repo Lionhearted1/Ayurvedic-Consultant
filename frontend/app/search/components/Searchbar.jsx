@@ -37,7 +37,6 @@ const Searchbar = (props) => {
       const response = await axios.get(`http://localhost:3002/medicines/autocompleteindications?query=${term}`);
       if (response.status === 200) {
         const data = response.data;
-        
         setSuggestions(data);
       } else {
         setError("Failed to fetch suggestions. Please try again.");
@@ -55,7 +54,7 @@ const Searchbar = (props) => {
   const handleInputChange = (e) => {
     const newQuery = e.target.value;
     setQuery(newQuery);
-    props.onSearchChange(query)
+    props.onSearchChange(newQuery)
     setError(null);
     const terms = newQuery.split(",");
     const currentTerm = terms[terms.length - 1].trim();
@@ -147,10 +146,6 @@ const Searchbar = (props) => {
 
   return (
     <>
-      <AutoTypingMessage
-        message="Hello World"
-        condition={`text-white text-[2.5rem] md:text-[3rem] font-semibold ${props.autoTypeCondition}`}
-      />
       <motion.div
         className={`search h-1/4 w-full flex justify-center items-center relative ${props.condition}`}
         initial={{ opacity: 0, y: 20 }}

@@ -10,15 +10,30 @@ const Checkbox = (props) => {
   const [selectedItems, setSelectedItems] = useState([]);
   const [precQuery, setPrecQuery] = useState('');
   const controller = new AbortController();
+  const [mounted, setMounted] = useState(false);
+  const [prevSearchTerm, setPrevSearchTerm] = useState(null);
+
 
   useEffect(() => {
-    fetchData();
+    setMounted(true);
+    // Check if the component is mounted and if the search term has changed
+    if (mounted && props.searchTerm !== prevSearchTerm) {
+      fetchData();
+    }
+    else if(!props.searchTerm){
+      setItems([])
+    }
+  
+    // Update the previous search term
+    setPrevSearchTerm(props.searchTerm);
+  
+    // Cancel the Axios request when the component unmounts
     return () => {
-      // Cancel the Axios request when the component unmounts
+      setMounted(false);
       controller.abort("Component unmounted")
     };
-  }, [props.searchTerm]);
-
+  }, [props.searchTerm, prevSearchTerm]);
+  
 
   useEffect(() => {
     prepareQuery();
@@ -31,6 +46,10 @@ const Checkbox = (props) => {
   useEffect(()=>{
     props.handlePrecterm(precQuery);
   },[precQuery])
+
+  useEffect(()=>{
+    console.log(props.searchTerm)
+  })
 
 
   const fetchData = async () => {
@@ -88,11 +107,23 @@ const Checkbox = (props) => {
         exit={{ opacity: 0, y: 10 }}
         transition={{ duration: 0.5 }}
       >
-        <h1 className="text-[2.25rem] text-white font-light mb-8">Select Precuations/Side-Effects</h1>
 
+
+       
+{items.length>0 &&
+
+        <h1 className="text-white text-[1.2rem] md:text-[2rem] font-semibold"
+        initial={{ opacity: 0}}
+        animate={{ opacity: 1}}
+        exit={{ opacity: 0}}
+        transition={{ duration: 0.5 }}
+        
+        >Select Precuations/Side-Effects
+        </h1>
+}
         <div className="flex flex-wrap justify-center items-center w-3/4 overflow-hidden overflow-y-auto">
-          {items &&
 
+        {items.length>0 &&
             items.map((item, index) => (
               <Box
               key={index}
@@ -101,12 +132,9 @@ const Checkbox = (props) => {
               onToggle={toggleItem}
               />
               ))}
-            {reserror &&
-            <div>{reserror}</div>
-            }
-            
+              </div>  
+            {reserror && <div className="w-full text-center text-white text-[1.2rem] md:text-[2rem] font-semibold"> {reserror} </div>}    
 
-        </div>
       </motion.div>
     </>
   );
