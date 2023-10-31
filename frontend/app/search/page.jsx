@@ -7,9 +7,12 @@ import axios from "axios";
 import AutoTypingMessage from "./components/AutoTypingMessage";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useSearchParams } from 'next/navigation'; 
 
 
 const Page = () => {
+  const userparams=useSearchParams();
+  const name=userparams.get('name')
  //for search-bar
   const [searchTerm, setSearchTerm] = useState("");
   const handleSearchChange = (value) => {
@@ -81,7 +84,7 @@ const Page = () => {
         <div className="back">
           {!(isInputFocused || isPrecAvailable ) &&
         <AutoTypingMessage
-        message="Hello World"
+        message={`Hello ${name}`}
         condition={`text-white text-[2.5rem] md:text-[3rem] font-semibold`}
       />}
 

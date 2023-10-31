@@ -2,13 +2,20 @@
 import React, { useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 import FormWrapper from '../components/FormWrapper';
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
+import { useRouter, useSearchParams } from 'next/navigation'; // Use 'next/router' instead of 'next/navigation'
+import axios from 'axios'; // Import axios
 
 
 const Page = () => {
+  const router = useRouter();
+  const userparams=useSearchParams();
+
+  const name=userparams.get('name')
+  const role=userparams.get('role')
+
   const [values, setValues] = useState({
     email: '',
     password: '',
@@ -24,24 +31,47 @@ const Page = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+  };
 
-    if (values.password !== values.confirmPassword) {
+  const buttonOnchange = async (e) => {
+
+    const email = values.email;
+    const password = values.password;
+
+    if (password !== values.confirmPassword) {
       toast.error('Password and Confirm Password do not match');
       return;
     }
-    console.log(values)
-    // Continue with your form submission logic here if the passwords match.
-  };
+    console.log(name,role,email,password)
+    let response;
 
-  const buttonOnchange = () => {
-    console.log('button change');
-    console.log(values)
+    try {
+      response = await axios.post('http://localhost:3002/auth/register', {
+        name, 
+        role, 
+        email,
+        password,
+      },{validateStatus: function (status) {
+        return status < 300; // Resolve only if the status code is less than 500
+      }});
+      console.log('HTTP status code:', response.status);
+      // Handle the response here.
+      if(response.status===200){
+        console.log("Hello")
+      toast.success(response.data.status);
+      setTimeout(()=>{router.push(`/search?name=${name}`)},1000)
+      }else{
+        toast.error(response.data.error)
+      }
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <ToastContainer/>
+        <ToastContainer />
         <FormWrapper heading="Register">
           <FormInput
             label="Email"

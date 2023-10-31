@@ -3,8 +3,13 @@ import React, { useState } from "react";
 import FormInput from "../components/FormInput";
 import FormButton from "../components/FormButton";
 import FormWrapper from "../components/FormWrapper";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
+  const router = useRouter();
   const [state, setState] = useState({
     email: "",
     password: "",
@@ -22,12 +27,36 @@ const Page = () => {
     e.preventDefault();
   }
 
-  const buttonOnchange = () => {
-    console.log("button change");
+  const buttonOnchange = async (e) => {
+    let response;
+    const email = state.email;
+    const password = state.password;
+
+    try {
+      response = await axios.post('http://localhost:3002/auth/login', { 
+        email,
+        password,
+      },{validateStatus: function (status) {
+        return status < 500; // Resolve only if the status code is less than 500
+      }});
+      // Handle the response here.
+      if(response.status===200){
+        console.log("Hello")
+      toast.success(response.data.status);
+      let name=response.data.name;
+      setTimeout(()=>{router.push(`/search?name=${name}`)},500)
+      
+      }else{
+        toast.error(response.data.error)
+      }
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   return (
     <>
+        <ToastContainer />
         <form onSubmit={handleSubmit}>
       <FormWrapper heading="Login">
           <FormInput

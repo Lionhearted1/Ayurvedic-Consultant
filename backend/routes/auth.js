@@ -16,7 +16,7 @@ router.post('/register', async (req, res) => {
     });
 
     await user.save();
-    res.status(201).json({ status: 'User registered', name: user.name }); // Status 201 for "Created"
+    res.status(200).json({ status: 'User registered', name: user.name }); // Status 201 for "Created"
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Registration failed', message: error.message }); // Status 500 for "Internal Server Error" with an error message
