@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import AutoTypingMessage from "./AutoTypingMessage";
 import axios from "axios";
 import Suggestions from "./Suggestions";
-import { BiSearchAlt } from "react-icons/bi";
+import { GrSearch } from "react-icons/gr";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
 const Searchbar = (props) => {
@@ -158,7 +158,7 @@ const Searchbar = (props) => {
           whileHover={{ scale: 1.05 }}
           transition={{ duration: 0.75 }}
         >
-          <BiSearchAlt className="mr-2 text-white" />
+          <GrSearch className="mr-2 text-white" />
           <input
             type="text"
             className="bg-transparent focus:border-none focus:outline-none w-full text-white"
