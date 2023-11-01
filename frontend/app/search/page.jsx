@@ -8,9 +8,11 @@ import AutoTypingMessage from "./components/AutoTypingMessage";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSearchParams } from 'next/navigation'; 
+import { useResDataContext } from "../context/resDatacontext";
 
 
 const Page = () => {
+  const {resData,setResData}=useResDataContext();
   const userparams=useSearchParams();
   const name=userparams.get('name')
  //for search-bar
@@ -49,10 +51,12 @@ const Page = () => {
       if (response.status === 200) {
       data = response.data;
       toast.success(data, { autoClose: 2000 });
+      setResData(response.data)
       console.log(data);
     } else {
       data = response.data;
       console.log(data.message)
+      setResData(data.message)
       toast.error(data.message, { autoClose: 2000 });
     }
   }
