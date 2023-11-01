@@ -4,6 +4,8 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import Background from './components/Background'; // Import the Background component
 import { ResDataContextProvider } from './context/ResDataContextProvider';
+import { UserDataContextProvider } from './context/UserDataContextProvider';
+
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -25,27 +27,20 @@ export default function RootLayout({ children }) {
     );
   }
 
-  if (!isFrontPage) {
+  else if (!isFrontPage) {
     return (
       <html lang="en">
         <body className="bg-cover bg-no-repeat bg-center" style={{ backgroundImage: `url('/pic1.jpg')` }}>
-        <ResDataContextProvider>
-          {children}
-          </ResDataContextProvider>
+          {/* <UserDataContextProvider> */}
+
+            <ResDataContextProvider>
+              {children}
+            </ResDataContextProvider>
+
+          {/* </UserDataContextProvider> */}
         </body>
       </html>
     );
   }
 
-  // Render other pages without the background video
-  return (
-    <html lang="en">
-      <body>
-
-        <ResDataContextProvider>
-          {children}
-        </ResDataContextProvider>
-      </body>
-    </html>
-  );
 }
