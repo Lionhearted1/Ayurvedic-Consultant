@@ -8,7 +8,7 @@ import AutoTypingMessage from "./components/AutoTypingMessage";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSearchParams } from 'next/navigation'; 
-import { useResDataContext } from "../context/resDatacontext";
+import { useResDataContext } from "../context/ResDataContext";
 
 
 const Page = () => {

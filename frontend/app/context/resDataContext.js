@@ -1,7 +1,7 @@
 import { createContext, useContext } from "react";
 
-export const resDataContext = createContext();
+export const ResDataContext = createContext();
 
 export function useResDataContext() {
-    return useContext(resDataContext);
+    return useContext(ResDataContext);
 }

@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import Background from './components/Background'; // Import the Background component
-import { ResDataContextProvider } from './context/resDataContextProvider';
+import { ResDataContextProvider } from './context/ResDataContextProvider';
 
 const inter = Inter({ subsets: ['latin'] });
 

@@ -5,13 +5,28 @@ import Box from "./Box";
 
 const Checkbox = (props) => {
 
-  const [items, setItems] = useState([]);
+  const [items, setItems] = useState(() => {
+    const savedItems = localStorage.getItem('items');
+    return savedItems ? JSON.parse(savedItems) : [];
+  });
+
   const [reserror, setResError] = useState(null);
-  const [selectedItems, setSelectedItems] = useState([]);
+  const [selectedItems, setSelectedItems] = useState(() => {
+    const savedSelectedItems = localStorage.getItem('selectedItems');
+    return savedSelectedItems ? JSON.parse(savedSelectedItems) : [];
+  });
+
   const [precQuery, setPrecQuery] = useState('');
   const controller = new AbortController();
   const [mounted, setMounted] = useState(false);
   const [prevSearchTerm, setPrevSearchTerm] = useState(null);
+
+  const updateData = (newItems, newSelectedItems) => {
+    setItems(newItems);
+    setSelectedItems(newSelectedItems);
+    localStorage.setItem('items', JSON.stringify(newItems));
+    localStorage.setItem('selectedItems', JSON.stringify(newSelectedItems));
+  }
 
 
   useEffect(() => {
@@ -64,6 +79,7 @@ const Checkbox = (props) => {
       if (response.status === 200) {
         data = response.data;
         setItems(data);
+        updateData(data,selectedItems);
         props.handlePrec(true)
         setResError(null);
       } else if (response.status === 404) {
@@ -85,6 +101,7 @@ const Checkbox = (props) => {
 
   const toggleItem = (item) => {
     setSelectedItems((prevSelectedItems) => {
+
       if (prevSelectedItems.includes(item)) {
         // If the item is already selected, remove it
         return prevSelectedItems.filter((selectedItem) => selectedItem !== item);
@@ -92,6 +109,7 @@ const Checkbox = (props) => {
         // If the item is not selected, add it
         return [...prevSelectedItems, item];
       }
+
     });
   };
 

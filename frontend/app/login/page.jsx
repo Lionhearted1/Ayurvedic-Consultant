@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import FormInput from "../components/FormInput";
 import FormButton from "../components/FormButton";
 import FormWrapper from "../components/FormWrapper";
@@ -7,15 +7,12 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useResDataContext } from "../context/resDatacontext";
+
 
 
 const Page = () => {
-  const {resData,setResData}=useResDataContext();
-  useEffect(()=>{
-    console.log(resData)
-  },resData)
-  console.log(resData);
+
+
   const router = useRouter();
   const [state, setState] = useState({
     email: "",
