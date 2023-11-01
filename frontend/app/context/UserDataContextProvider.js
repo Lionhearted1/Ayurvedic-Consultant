@@ -17,8 +17,8 @@ export const UserDataContextProvider = ({ children }) => {
 
   useEffect(() => {
     // Save userData to cookies whenever it changes
-    setCookie("userData", userData); // Also specify a path
-  }, [userData, setCookie]);
+    setCookie("userData", userData); 
+  }, [userData]);
 
   return (
     <UserDataContext.Provider value={{userData,setUserData}}>
