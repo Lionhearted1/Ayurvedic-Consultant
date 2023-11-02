@@ -23,6 +23,7 @@ const NavigationBar = () => {
         <FiMenu className="-mr-1 h-8 w-8 text-white" />
         </div>
       </div>
+      
       <div className="bg-white  bg-opacity-25 backdropBlur rounded-md">
       <div className={`flex flex-col mt-4 ${isOpen ? "flex" : "hidden"}`}>
         <Link href="/" className="text-white text-center py-2 hover:text-black hover:bg-gray-300 active:bg-green-500">Home</Link>
