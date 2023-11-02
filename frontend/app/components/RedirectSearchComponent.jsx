@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 const RedirectSearchComponent = () => {
     const router=useRouter();
-    const [count,setCount]=useState(1)
+    const [count,setCount]=useState(2)
     useEffect(()=>{
         setInterval(()=>{
             setCount(count-1)
