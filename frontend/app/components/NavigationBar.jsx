@@ -26,7 +26,7 @@ const NavigationBar = () => {
       <div className="bg-white  bg-opacity-25 backdropBlur rounded-md">
       <div className={`flex flex-col mt-4 ${isOpen ? "flex" : "hidden"}`}>
         <Link href="/" className="text-white text-center py-2 hover:text-black hover:bg-gray-300 active:bg-green-500">Home</Link>
-        <Link href="./login" className="text-white text-center py-2 hover:text-black hover:bg-gray-300 active:bg-green-500">Login</Link>
+        {isLogged=="false" && <Link href="./login" className="text-white text-center py-2 hover:text-black hover:bg-gray-300 active:bg-green-500">Login</Link>}
         <Link href="./search" className="text-white text-center py-2 hover:text-black hover:bg-gray-300 active:bg-green-500">Search</Link>
         {isLogged=="true" && <Link href="/logout" className="text-white text-center py-2 hover:text-black hover:bg-gray-300 active:bg-green-500">Logout</Link>}
       </div>
