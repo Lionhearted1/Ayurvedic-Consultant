@@ -85,10 +85,12 @@ const Page = () => {
 
   return (
     
-    <div className="h-screen w-screen bg-black bg-opacity-5 px-[2rem] py-[1rem] md:px-[4rem] md:py-[3rem] lg:px-[4rem] lg:py-[4rem]">
-      <button className="absolute top-3 left-3 text-3xl p-3 bg-transparent rounded-lg  "><IoMdArrowBack className="mr-2 text-gray-300 hover:text-white" /></button>
-        <div className="main_container  w-full h-full flex flex-col items-center justify-center bg-white bg-opacity-25 rounded-2xl md:flex-row overflow-y-auto">
-         <div className="container mx-auto my-8 ">
+    <div className="wrap">
+      <button className="absolute top-1 left-1 text-3xl p-3 bg-transparent rounded-lg  "><IoMdArrowBack className="mr-2 text-gray-300 hover:text-white" /></button>
+      <div className="back">
+        
+         <div className="main_container  w-full h-full flex flex-col items-center justify-center bg-white bg-opacity-25 rounded-2xl md:flex-row overflow-y-auto">
+         {/* <div className="container mx-auto my-8 "> */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-5">
            {medicines.map((medicine) => (
               <SearchResults key={medicine.id} medicine={medicine} />
