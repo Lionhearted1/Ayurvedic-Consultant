@@ -13,7 +13,7 @@ const FormInput = (props) => {
         <label className="lbl text-white">
           {props.label}
         </label>
-        <div className="inpt h-[2rem] w-full bg-white bg-opacity-25 text-black flex items-center justify-center rounded-md p-2 border-white">
+        <div className="inpt h-[2rem] w-full bg-white bg-opacity-25 text-white flex items-center justify-center rounded-md p-2 border-white">
           <input
             name={props.name}
             type={props.type}

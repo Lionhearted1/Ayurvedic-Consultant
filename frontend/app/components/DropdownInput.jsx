@@ -14,9 +14,9 @@ const DropdownInput = (props) => {
         <label className="lbl text-white">
           {props.label}
         </label>
-        <div className="inpt h-[2rem] w-full bg-black bg-opacity-25 text-white flex items-center justify-center rounded-md p-2 border-white">
+        <div className="inpt h-[2rem] w-full bg-white bg-opacity-25 text-white flex items-center justify-center rounded-md p-2 border-white">
           <select
-            className="bg-transparent focus:border-none focus:outline-none w-full text-white"
+            className="bg-transparent focus:border-none focus:outline-none w-full text-white bg-black"
             value={selectedItem}
             onChange={handleSelectChange}
           >
