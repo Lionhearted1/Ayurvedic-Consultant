@@ -358,7 +358,7 @@
 		"pack-Size": "100 gm",
 		"indications": ["Pinasa", "Kasa", "Shvasa"],
 		"dosage": "10-50\ngm",
-		"precaution": "Pregnancy, Pitta Prakriti, Paittika Roga",
+		"precaution": ["Pregnancy", "Pitta Prakriti", "Paittika Roga"],
 		"opd_ip": "NS",
 		"category": "Avaleha, Khand, Pak Kalpana"
 	  },
@@ -1875,7 +1875,7 @@
 		"reference": "AFI",
 		"pack-Size": "10 tabs",
 		"indications": ["Rajahsritaj Roga", "Artava Dhatu Kshaya"],
-		"dosage": "1-2 tabs with honey or as directed by physician"],
+		"dosage": "1-2 tabs with honey or as directed by physician",
 		"opd_ip": "Oral",
 		"category": "Vati & Gutika"
 	  },
