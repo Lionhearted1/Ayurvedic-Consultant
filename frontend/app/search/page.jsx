@@ -8,15 +8,19 @@ import AutoTypingMessage from "./components/AutoTypingMessage";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useSearchParams } from 'next/navigation'; 
-import { useResDataContext } from "../context/ResDataContext";
+
 
 
 const Page = () => {
-  const {resData,setResData}=useResDataContext();
+
   const userparams=useSearchParams();
   const name=userparams.get('name')
  //for search-bar
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState(()=>{
+    const searchQuery=localStorage.getItem('query')
+    return searchQuery? searchQuery : "";
+  });
+
   const handleSearchChange = (value) => {
     setSearchTerm(value);
   };
@@ -35,13 +39,16 @@ const Page = () => {
   }, [searchTerm, precTerm]);
 
   const prepareURL=()=>{
-    setURL(`?indications=${encodeURIComponent(searchTerm)}&precautions=${encodeURIComponent(precTerm)}`)
+    const sanitizedSearchTerm=searchTerm.replace(/,+$/, '');
+    const sanitizedPrecTerm=precTerm.replace(/,+$/, '')
+    setURL(`?indications=${encodeURIComponent(sanitizedSearchTerm)}&precautions=${encodeURIComponent(sanitizedPrecTerm)}`)
   }
 
 
   
   const conOnClickHandle = async () => {
     let data;
+    console.log(url)
 
     try {
       const response = await axios.get(`http://localhost:3002/medicines/filter${url}`
@@ -96,6 +103,7 @@ const Page = () => {
             onInputFocus={handleFocus}
             onSearchChange={handleSearchChange}
           />
+
         {(isInputFocused || isPrecAvailable) &&
           <Checkbox 
           handlePrecterm={handlePrecterm} 
@@ -103,7 +111,7 @@ const Page = () => {
           handlePrec={handlePrec}
           />
         }
-        {(searchTerm.length>0 && isPrecAvailable) &&
+        {(isPrecAvailable) &&
           <ConfirmBtn 
           onClick={conOnClickHandle}
 

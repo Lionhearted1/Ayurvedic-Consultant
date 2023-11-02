@@ -10,7 +10,12 @@ const Checkbox = (props) => {
     return savedItems ? JSON.parse(savedItems) : [];
   });
 
-  const [reserror, setResError] = useState(null);
+  const [reserror, setResError] = useState(() => {
+    const reserror = localStorage.getItem('reserror');
+    return reserror ? (reserror) : [];
+  });
+
+  
   const [selectedItems, setSelectedItems] = useState(() => {
     const savedSelectedItems = localStorage.getItem('selectedItems');
     return savedSelectedItems ? JSON.parse(savedSelectedItems) : [];
@@ -48,8 +53,8 @@ const Checkbox = (props) => {
       controller.abort("Component unmounted")
     };
   }, [props.searchTerm, prevSearchTerm]);
-  
 
+//preparing query for final fetch
   useEffect(() => {
     prepareQuery();
   }, [selectedItems]);
@@ -60,9 +65,11 @@ const Checkbox = (props) => {
 
   useEffect(()=>{
     props.handlePrecterm(precQuery);
-  },[precQuery])
+  },[precQuery,items])
 
 
+
+//fetching data
   const fetchData = async () => {
     let data;
     let response;
@@ -79,13 +86,13 @@ const Checkbox = (props) => {
       if (response.status === 200) {
         data = response.data;
         setItems(data);
-        updateData(data,selectedItems);
         props.handlePrec(true)
         setResError(null);
       } else if (response.status === 404) {
         data = response.data;
         props.handlePrec(true)
         setResError(data.message);
+        localStorage.setItem('reserror',data.message);
         setItems([]);
       } else {
         props.handlePrec(false)
@@ -96,11 +103,13 @@ const Checkbox = (props) => {
       console.error(error);
     }
   };
-  
 
+
+  
 
   const toggleItem = (item) => {
     setSelectedItems((prevSelectedItems) => {
+      let newItem;
 
       if (prevSelectedItems.includes(item)) {
         // If the item is already selected, remove it
@@ -113,6 +122,25 @@ const Checkbox = (props) => {
     });
   };
 
+  useEffect(()=>{
+    updateData(items,selectedItems)
+  },[items,selectedItems])
+
+useEffect(()=>{
+  if(items.length>0){
+    localStorage.removeItem('reserror')
+  }
+
+  if(items.length>0 || reserror=="No precautions found for the specified indications."){
+    props.handlePrec(true)
+  }
+  else{
+    localStorage.removeItem('items')
+    localStorage.removeItem('selectedItems')
+    localStorage.removeItem('reserror')
+    props.handlePrec(false)
+  }
+})
 
 
   return (

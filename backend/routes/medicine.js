@@ -185,8 +185,8 @@ router.get('/filter', async (req, res) => {
 
   // Helper function to sanitize and remove trailing commas
   const sanitizeQuery = (queryParam) => {
-    // Filter out non-alphabetic characters and special characters
-    return queryParam.split(',').map(param => param.replace(/[^a-zA-Z\s/,/-]/g, '').trim());
+    // Filter out non-alphabetic characters, special characters, and trailing commas
+    return queryParam.split(',').map(param => param.replace(/[^a-zA-Z\s/,/-]/g, '').replace(/,+$/, '').trim());
   };
 
   try {
@@ -219,6 +219,7 @@ router.get('/filter', async (req, res) => {
     return res.status(500).json({ message: err.message });
   }
 });
+
 
 
 

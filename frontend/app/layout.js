@@ -3,8 +3,7 @@ import { useRouter } from 'next/navigation';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import Background from './components/Background'; // Import the Background component
-import { ResDataContextProvider } from './context/ResDataContextProvider';
-import { LogDataContextProvider } from './context/LogDataContextProvider';
+
 
 
 const inter = Inter({ subsets: ['latin'] });
@@ -31,11 +30,7 @@ export default function RootLayout({ children }) {
     return (
       <html lang="en">
         <body className="bg-cover bg-no-repeat bg-center" style={{ backgroundImage: `url('/pic1.jpg')` }}>
-          <LogDataContextProvider>
-            <ResDataContextProvider>
             {children}
-            </ResDataContextProvider>
-          </LogDataContextProvider>
         </body>
       </html>
     );
