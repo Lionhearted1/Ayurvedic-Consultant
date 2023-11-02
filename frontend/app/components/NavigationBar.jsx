@@ -10,7 +10,7 @@ const NavigationBar = () => {
     setIsOpen(!isOpen);
   };
 
-  
+
 
   return (
     <div className={`bg-transparent text-black p-4 fixed top-0 right-0 
@@ -23,10 +23,10 @@ const NavigationBar = () => {
       </div>
       <div className="bg-white  bg-opacity-25 backdropBlur rounded-md">
       <div className={`flex flex-col mt-4 ${isOpen ? "flex" : "hidden"}`}>
-        <Link href="/" className="text-white py-2 hover:text-black hover:bg-gray-300 active:bg-green-500">Home</Link>
-        <Link href="./login" className="text-white py-2 hover:text-black hover:bg-gray-300 active:bg-green-500">Login</Link>
-        <Link href="./search" className="text-white py-2 hover:text-black hover:bg-gray-300 active:bg-green-500">Search</Link>
-        <Link href="#" className="text-white py-2 hover:text-black hover:bg-gray-300 active:bg-green-500">Logout</Link>
+        <Link href="/" className="text-white text-center py-2 hover:text-black hover:bg-gray-300 active:bg-green-500">Home</Link>
+        <Link href="./login" className="text-white text-center py-2 hover:text-black hover:bg-gray-300 active:bg-green-500">Login</Link>
+        <Link href="./search" className="text-white text-center py-2 hover:text-black hover:bg-gray-300 active:bg-green-500">Search</Link>
+        <Link href="#" className="text-white text-center py-2 hover:text-black hover:bg-gray-300 active:bg-green-500">Logout</Link>
       </div>
       </div>
     </div>

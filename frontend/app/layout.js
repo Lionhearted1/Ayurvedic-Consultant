@@ -2,43 +2,23 @@
 import { useRouter } from 'next/navigation';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import Background from './components/Background'; // Import the Background component
+import Background from './components/Background'; 
+import NavigationBar from './components/NavigationBar'; 
 
 const inter = Inter({ subsets: ['latin'] });
 
+const excludedRoutes = ['./login', './register','./register-1']; 
+
 export default function RootLayout({ children }) {
   const router = useRouter();
+  const currentRoute = router.pathname;
+  const shouldDisplayNavigationBar = !excludedRoutes.includes(currentRoute);
 
-  // Check if the current route is the front page
-  const isFrontPage = router.pathname === '/';
-
-  // Render background video only for the front page
-  if (isFrontPage) {
-    return (
-      <html lang="en">
-        <body>
-          <Background /> {/* Render the Background component only for the front page */}
-          {children}
-        </body>
-      </html>
-    );
-  }
-
-  if (!isFrontPage) {
-    return (
-      <html lang="en">
-        <body className="bg-cover bg-no-repeat bg-center" style={{ backgroundImage: `url('/pic1.jpg')` }}>
-          {children}
-        </body>
-      </html>
-    );
-  }
-
-  // Render other pages without the background video
   return (
     <html lang="en">
-      <body>
-        {children}
+      <body className={shouldDisplayNavigationBar ? 'with-navbar' : ''}>
+        {shouldDisplayNavigationBar && <NavigationBar />}
+        {currentRoute === '/' ? <Background /> : <div className="bg-cover bg-no-repeat bg-center" style={{ backgroundImage: `url('/pic1.jpg')` }}>{children}</div>}
       </body>
     </html>
   );
