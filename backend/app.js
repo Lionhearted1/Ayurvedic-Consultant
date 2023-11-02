@@ -5,9 +5,6 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const medicineRoutes = require('./routes/medicine');
 const authRoutes=require('./routes/auth')
-const session = require('express-session');
-const bcrypt = require('bcrypt');
-
 
 const dbUrl = 'mongodb://localhost:27017/ayu';
 // app.use(session({ secret: 'your-secret-key', resave: false, saveUninitialized: true }));
