@@ -60,7 +60,7 @@ const query=`?name=${name}&role=${selectedItem}`
             buttonText="Next"
             registerText="Already have an account?"
             linkText="Login"
-            href="/register-1"
+            href="/login"
             onClick={buttonOnchange}
           />
         </FormWrapper>
