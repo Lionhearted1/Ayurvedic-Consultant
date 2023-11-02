@@ -7,6 +7,7 @@ import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 import { useRouter, useSearchParams } from 'next/navigation'; // Use 'next/router' instead of 'next/navigation'
 import axios from 'axios'; // Import axios
+import RedirectSearchComponent from '../components/RedirectSearchComponent';
 
 
 const Page = () => {
@@ -69,6 +70,14 @@ const Page = () => {
       toast.error(error);
     }
   };
+  const isLogged = localStorage.getItem("isLogged");
+  if (isLogged == "true") {
+    return (
+      <>
+        <RedirectSearchComponent />
+      </>
+    );
+  }
 
   return (
     <>

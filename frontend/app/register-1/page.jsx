@@ -5,8 +5,11 @@ import FormWrapper from '../components/FormWrapper';
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
 import DropdownInput from '../components/DropdownInput';
+import RedirectSearchComponent from '../components/RedirectSearchComponent';
+
 
 const Page = () => {
+
   const router = useRouter(); // Initialize the router
 
   const [selectedItem, setSelectedItem] = useState(''); // State to track the selected item
@@ -26,6 +29,15 @@ const query=`?name=${name}&role=${selectedItem}`
 
     router.push(`/register-2${query}`)
   };
+
+  const isLogged = localStorage.getItem("isLogged");
+  if (isLogged == "true") {
+    return (
+      <>
+        <RedirectSearchComponent />
+      </>
+    );
+  }
 
   return (
     <>

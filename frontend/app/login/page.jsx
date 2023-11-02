@@ -3,14 +3,15 @@ import React, { useState } from "react";
 import FormInput from "../components/FormInput";
 import FormButton from "../components/FormButton";
 import FormWrapper from "../components/FormWrapper";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-
-
+import RedirectSearchComponent from "../components/RedirectSearchComponent";
 
 const Page = () => {
+
+
   const router = useRouter();
   const [state, setState] = useState({
     email: "",
@@ -25,9 +26,9 @@ const Page = () => {
     });
   };
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-  }
+  };
 
   const buttonOnchange = async (e) => {
     let response;
@@ -35,34 +36,50 @@ const Page = () => {
     const password = state.password;
 
     try {
-      response = await axios.post('http://localhost:3002/auth/login', { 
-        email,
-        password,
-      },{validateStatus: function (status) {
-        return status < 500; // Resolve only if the status code is less than 500
-      }});
+      response = await axios.post(
+        "http://localhost:3002/auth/login",
+        {
+          email,
+          password,
+        },
+        {
+          validateStatus: function (status) {
+            return status < 500; // Resolve only if the status code is less than 500
+          },
+        }
+      );
       // Handle the response here.
-      if(response.status===200){
-        console.log("Hello")
-      toast.success(response.data.status);
-      let name=response.data.name;
-      localStorage.setItem('username',name)
-      localStorage.setItem('isLogged',"true")
-      setTimeout(()=>{router.push(`/search?name=${name}`)},500)
-      
-      }else{
-        toast.error(response.data.error)
+      if (response.status === 200) {
+        console.log("Hello");
+        toast.success(response.data.status);
+        let name = response.data.name;
+        localStorage.setItem("username", name);
+        localStorage.setItem("isLogged", "true");
+        setTimeout(() => {
+          router.push(`/search?name=${name}`);
+        }, 500);
+      } else {
+        toast.error(response.data.error);
       }
     } catch (error) {
       toast.error(error);
     }
   };
 
+  const isLogged = localStorage.getItem("isLogged");
+  if (isLogged == "true") {
+    return (
+      <>
+        <RedirectSearchComponent />
+      </>
+    );
+  }
+
   return (
     <>
-        <ToastContainer />
-        <form onSubmit={handleSubmit}>
-      <FormWrapper heading="Login">
+      <ToastContainer />
+      <form onSubmit={handleSubmit}>
+        <FormWrapper heading="Login">
           <FormInput
             label="Email"
             type="email"
@@ -81,11 +98,11 @@ const Page = () => {
             buttonText="Login"
             registerText="Don't have an account?"
             linkText="Register"
-            href="/register"
+            href="/register-1"
             onClick={buttonOnchange}
           />
-      </FormWrapper>
-        </form>
+        </FormWrapper>
+      </form>
     </>
   );
 };

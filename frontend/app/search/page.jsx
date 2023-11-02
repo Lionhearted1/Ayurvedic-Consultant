@@ -14,7 +14,7 @@ import RedirectComponent from "../components/RedirectComponent";
 
 const Page = () => {
 
-  const isLogged=localStorage.getItem('isLogged')
+  //for name
   const name=localStorage.getItem('username')
 
  //for search-bar
@@ -47,7 +47,7 @@ const Page = () => {
   }
 
 
-  
+  //submit
   const conOnClickHandle = async () => {
     let data;
     console.log(url)
@@ -88,6 +88,8 @@ const Page = () => {
     setPrecAvailable(prec)
   }
 
+  //conditional render
+  const isLogged=localStorage.getItem('isLogged')
   if(isLogged=="false"){
     return (<>
     <RedirectComponent/>
