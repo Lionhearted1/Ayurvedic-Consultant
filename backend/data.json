@@ -578,7 +578,7 @@
 		"pack-Size": 100,
 		"indications": ["Shiroroga", "Bhru- shankha- Karna Shula", "Ardhavbhedaka", "Suryavarta"],
 		"dosage": "25-50\nml",
-		"precaution": "Chhardi, Atisara, Ativire- chanajanya Rasakshaya, Vataprakopa",
+		"precaution": ["Chhardi", "Atisara", "Ativire- chanajanya Rasakshaya", "Vataprakopa"],
 		"opd_ip": "Both",
 		"category": "Kvatha Churna/Kashayam"
 	  },
@@ -589,7 +589,7 @@
 		"pack-Size": "100 gm",
 		"indications": ["Kamala", "Pandu"],
 		"dosage": "25-50\nml",
-		"precaution": "Chhardi, Atisara, Ativirechan janya Rasakshaya, Vataprakopa",
+		"precaution": ["Chhardi", "Atisara", "Ativirechan janya Rasakshaya", "Vataprakopa"],
 		"opd_ip": "Both",
 		"category": "Kvatha Churna/Kashayam"
 	  },
@@ -919,7 +919,7 @@
 		"packSize": "50 gm",
 		"indications": ["Agnimandya", "Gulma", "Ajirna", "Grahaniroga", "Vatakaphajaroga"],
 		"dosage": "3-6 gm",
-		"precaution": "Shotha, Jalodara, hypertension, long term use",
+		"precaution": ["Shotha", "Jalodara", "hypertension", "long term use"],
 		"opdIp": "Both",
 		"category": "Churna - Multi-ingredient"
 	  },
@@ -985,7 +985,7 @@
 		"packSize": "25 gm",
 		"indications": ["Arochaka", "Ama", "Agnimandya"],
 		"dosage": "1-2 gm",
-		"precaution": "Paittika Vikara or Prakriti, Raktaj Roga, pregnancy, long term use",
+		"precaution": ["Paittika Vikara or Prakriti", "Raktaj Roga", "pregnancy", "long term use"],
 		"opdIp": "Both",
 		"category": "Churna - Multi-ingredient"
 	  },
@@ -1073,7 +1073,7 @@
 		"packSize": "50 gm",
 		"indications": ["Vibandha", "Udararoga"],
 		"dosage": "3-6 gm",
-		"precaution": "Debility, pregnancy, dehydration, Paittika Roga",
+		"precaution": ["Debility", "pregnancy", "dehydration", "Paittika Roga"],
 		"opdIp": "Both",
 		"category": "Churna - Single Ingredient"
 	  },
@@ -1227,7 +1227,7 @@
 		"packSize": "10 ml",
 		"indications": ["Vataroga", "Pakshavadha", "Dhatukshaya", "Sutikaroga", "Balaroga"],
 		"dosage": "10-30 drops for internal use",
-		"precaution": "Amadosha",
+		"precaution": ["Amadosha"],
 		"opdIp": "Both",
 		"category": "Taila"
 	  },
@@ -1238,7 +1238,7 @@
 		"packSize": "50 ml",
 		"indications": ["Vatavikara", "Gridhrasi", "Vibandha", "Katishula"],
 		"dosage": "10-30 ml",
-		"precaution": "Peri-conception period, long term use in pregnancy",
+		"precaution": ["Peri-conception period", "long term use in pregnancy"],
 		"opdIp": "Both",
 		"category": "Taila"
 	  },
@@ -1260,7 +1260,7 @@
 		"packSize": "50 ml",
 		"indications": ["Vidradhi", "Udara", "Mahavataroga", "Gulma", "Udavarta"],
 		"dosage": "6-12 ml",
-		"precaution": "Ajirna, Amavastha",
+		"precaution":[ "Ajirna", "Amavastha"],
 		"opdIp": "Both",
 		"category": "Taila"
 	  },
@@ -1436,7 +1436,7 @@
         "pack-Size": "50 ml",
         "indications": ["Vataroga", "Gridhrasi", "Khanja", "Panguvata"],
         "dosage": "For Abhyanga over affected body part",
-        "precaution": "Not to be used in Guda roga, Krisha rogi, Ajirna, Vamit, Kritnasya, Virikta",
+        "precaution": [ "Krisha rogi", "Ajirna", "Vamit", "Kritnasya, Virikta"],
         "opd_ip": "IPD",
         "category": "Taila"
     },
@@ -1480,7 +1480,7 @@
         "pack-Size": "25 ml",
         "indications": ["Shvitra", "Kushtha"],
         "dosage": "For local application on affected body part",
-        "precaution": "Discontinue if excessive irritation, vescication, extensive hyperpig - mentation appears",
+        "precaution": ["excessive irritation","vescication", "extensive hyperpigmentation"],
         "opd_ip": "Both",
         "category": "Taila"
     },
@@ -1590,7 +1590,7 @@
         "pack-Size": "5 gm",
         "indications": ["Agnimandya", "Amadosha", "Grahaniroga"],
         "dosage": "250- 500 mg",
-        "precaution": "Pregnancy, Uterine bleeding, Pitta Prakriti, Raktpittaj Roga, long term use",
+        "precaution": ["Pregnancy"," Uterine bleeding", "Pitta Prakriti"," Raktpittaj Roga"," long term use"],
         "opd_ip": "Both",
         "category": "Vati & Gutika"
     },
@@ -1667,7 +1667,7 @@
         "pack-Size": "10 gm",
         "indications": ["Visuchika", "Ajirna", "Atisara"],
         "dosage": "500 mg - 1 gm",
-        "precaution": "Hyperacidity, Peptic Ulcer, Pitta Prakriti, history of Raktapitt aja Vikara",
+        "precaution": ["Hyperacidity", "Peptic Ulcer", "Pitta Prakriti", "history of Raktapitt aja Vikara"],
         "opd_ip": "Both",
         "category": "Vati & Gutika"
     },
@@ -1689,7 +1689,7 @@
         "pack-Size": "5 gm",
         "indications": ["Rajorodha", "Kastartava"],
         "dosage": "250 mg",
-        "precaution": "Pregnancy, lactation, excessive Uterine Bleeding, kidney disease, discontinue in case of severe abdominal pain",
+        "precaution": ["Pregnancy", "lactation"," excessive Uterine Bleeding", "kidney disease"],
         "opd_ip": "Both",
         "category": "Vati & Gutika"
     },
@@ -1722,7 +1722,7 @@
 		"pack-Size": "150 ml",
 		"indications": ["Unmada", "Apasmar", "Murcha", "Netra Roga", "Pandu", "Vata Vyadhi"],
 		"dosage": "12-24 ml with equal quantity of warm water/milk on empty stomach or as directed by physician",
-		"precaution": "Pregnancy, Lactation, Diarrhea",
+		"precaution": ["Pregnancy", "Lactation"," Diarrhea"],
 		"opd_ip": "Oral",
 		"category": "Ghrita"
 	  },
@@ -1744,7 +1744,7 @@
 		"pack-Size": "1 kg",
 		"indications": ["Pandu", "Jvara", "Shoola", "Gulma", "Udara Roga"],
 		"dosage": "12-24 g with warm water at bedtime or as directed by physician",
-		"precaution": "Diabetes, Dyslipidemia, Obesity",
+		"precaution": ["Diabetes", "Dyslipidemia"," Obesity"],
 		"opd_ip": "Oral",
 		"category": "Avaleha & Paka"
 	  },
@@ -1755,7 +1755,7 @@
 		"pack-Size": "250 gm",
 		"indications": ["Vata Roga", "Unmada", "Apasmar", "Murcha", "Pandu", "Kasa", "Shvasa", "Hikka"],
 		"dosage": "6-12 gm with warm milk/honey or as directed by physician",
-		"precaution": "Diabetes, Dyslipidemia, Obesity",
+		"precaution": ["Diabetes", "Dyslipidemia", "Obesity"],
 		"opd_ip": "Oral",
 		"category": "Rasayana"
 	  },
@@ -1843,7 +1843,7 @@
 		"pack-Size": "5 gm",
 		"indications": ["Agnimandya", "Amadosha", "Grahaniroga"],
 		"dosage": "250- 500 mg",
-		"precaution": "Pregnancy, Uterine bleeding, Pitta Prakriti",
+		"precaution": ["Pregnancy", "Uterine bleeding", "Pitta Prakriti"],
 		"opd_ip": "Both",
 		"category": "Vati & Gutika"
 	  },
@@ -1875,8 +1875,7 @@
 		"reference": "AFI",
 		"pack-Size": "10 tabs",
 		"indications": ["Rajahsritaj Roga", "Artava Dhatu Kshaya"],
-		"dosage": "1-2 tabs with honey or as directed by physician",
-		"precaution": "Pregnancy, lactation, excessive Uterine Bleeding, kidney disease, discontinue in case of severe abdominal pain",
+		"dosage": "1-2 tabs with honey or as directed by physician"],
 		"opd_ip": "Oral",
 		"category": "Vati & Gutika"
 	  },
@@ -1918,7 +1917,7 @@
 		"medicine": "Yakrit Plihari Loha",
 		"reference": "BG",
 		"pack-Size": "10 gm",
-		"indications": ["Pandu, Kamala, Pleehodara, Udara Roga, Prameha, Raktapitta, Gastric Ulcer, Pitta Prakriti, history of Raktapitt aja Vikara"],
+		"indications": ["Pandu", "Kamala", "Pleehodara", "Udara Roga", "Prameha", "Raktapitta", "Gastric Ulcer", "Pitta Prakriti", "history of Raktapitt aja Vikara"],
 		"dosage": "125-250 mg",
 		"precaution": "NS",
 		"opd_ip": "Both",
@@ -1942,7 +1941,7 @@
 		"pack-Size": "5 gm",
 		"indications": ["Rajorodha", "Kastartava"],
 		"dosage": "250 mg",
-		"precaution": "Pregnancy, lactation, excessive Uterine Bleeding, kidney disease, discontinue in case of severe abdominal pain",
+		"precaution": ["Pregnancy, lactation", "excessive Uterine Bleeding", "kidney disease"],
 		"opd_ip": "Both",
 		"category": "Vati & Gutika"
 	  },
@@ -1964,7 +1963,7 @@
 		"pack-Size": "5 gm",
 		"indications": ["Anidra", "Manodvega"],
 		"dosage": "250-500 mg",
-		"precaution": "Concomitant use of medicines made of Vatsanabha or Gokshuru,  anti hyperten sives/ depressants/ psychotropic medicines postural hypotension, bradycardia",
+		"precaution": ["Concomitant use of medicines made of Vatsanabha or Gokshuru",  "anti hypertensives/ depressants/ psychotropic medicines postural hypotension", "bradycardia"],
 		"opd_ip": "Both",
 		"category": "Vati & Gutika"
 	  },
@@ -1975,7 +1974,7 @@
 		"pack-Size": "5 gm",
 		"indications": ["Mandagni", "Ajirna", "Gulma", "Visuchika", "Sarpadamsha"],
 		"dosage": "125 mg",
-		"precaution": "Pitta Prakriti individuals, hyper sensitivity to Bhallataka, patients having history of Raktapittaja Vikara, pregnancy, cardiac arrhythmia, long term use",
+		"precaution": ["Pitta Prakriti individuals", "hyper sensitivity to Bhallataka", "patients having history of Raktapittaja Vikara", "pregnancy", "cardiac arrhythmia", "long term use"],
 		"opd_ip": "Both",
 		"category": "Vati & Gutika"
 	  },
@@ -2019,7 +2018,7 @@
 		"pack-Size": "5 gm",
 		"indications": ["Grahani", "Atisara", "Agnimandya", "Kshaya"],
 		"dosage": "125-250 mg",
-		"precaution": "Peri- conceptional period, pregnancy, lactation period, kidney disease, small children",
+		"precaution": ["Peri- conceptional period", "pregnancy", "lactation period", "kidney disease", "small children"],
 		"opd_ip": "Both",
 		"category": "Parpati"
 	  },
@@ -2165,7 +2164,6 @@
 		"precaution": "NS",
 		"opd_ip": "Both",
 		"category": "Mandura"
-	  }
+	}
 
-  ]
-  
+]
