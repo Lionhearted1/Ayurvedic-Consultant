@@ -135,6 +135,7 @@ localStorage.setItem('query',query)
     setError(null);
     inputRef.current.focus();
     props.onSearchChange('')
+    localStorage.removeItem("selectedItems")
   };
 
   const [isUsingKeyboardNavigation,setIsUsingKeyboardNavigation]=useState(false)

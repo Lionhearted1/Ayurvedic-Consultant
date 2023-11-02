@@ -163,7 +163,7 @@ useEffect(()=>{
         exit={{ opacity: 0}}
         transition={{ duration: 0.5 }}
         
-        >Select Precuations/Side-Effects
+        >Pre-existing Condition/Allergies if any
         </h1>
 }
         <div className="flex flex-wrap justify-center items-center w-3/4 overflow-hidden overflow-y-auto">
