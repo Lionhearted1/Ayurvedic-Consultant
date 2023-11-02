@@ -501,7 +501,7 @@
 		"pack-Size": "100 gm",
 		"indications": ["Pacana", "Kasa", "Svasa", "Urjaskara", "Pratisyaya"],
 		"dosage": "3gm in 150 ml boiled water",
-		"precaution": "Pregnant women should take the formulation under medical supervision",
+		"precaution": "Pregnancy",
 		"opd_ip": "Both",
 		"category": "Kvatha Churna/Kashayam"
 	  },
@@ -600,7 +600,7 @@
 		"pack-Size": "100 gm",
 		"indications": ["Janghashula", "Urushula", "Parshvashula", "Trikshula", "Prishashula"],
 		"dosage": "25-50\nml",
-		"precaution": "Concomit- ant use of Eranda Taila in Garbhini",
+		"precaution": "Pregnancy",
 		"opd_ip": "Both",
 		"category": "Kvatha Churna/Kashayam"
 	  },
@@ -611,7 +611,7 @@
 		"pack-Size": 100,
 		"indications": ["Trishna", "Jvara"],
 		"dosage": "25-50\nml",
-		"precaution": "Nausea due to bitterness",
+		"precaution": "Nausea ",
 		"opd_ip": "Both",
 		"category": "Kvatha Churna/Kashayam"
 	  },
@@ -754,7 +754,7 @@
 		"pack-Size": "10 gm",
 		"indications": ["Bhagandara", "Arsha", "Nadi Vrana", "Gulma", "Shotha"],
 		"dosage": "Up to 3 gm in divided doses",
-		"precaution": "Pregnancy Chronic or recurrent diarrhea",
+		"precaution": ["Pregnancy" ,"Chronic or recurrent diarrhea"],
 		"opd_ip": "Both",
 		"category": "Guggulu"
 	  },
@@ -985,7 +985,7 @@
 		"packSize": "25 gm",
 		"indications": ["Arochaka", "Ama", "Agnimandya"],
 		"dosage": "1-2 gm",
-		"precaution": ["Paittika Vikara or Prakriti", "Raktaj Roga", "pregnancy", "long term use"],
+		"precaution": ["Paittika Vikara or Prakriti", "Raktaj Roga", "Pregnancy", "long term use"],
 		"opdIp": "Both",
 		"category": "Churna - Multi-ingredient"
 	  },
@@ -1007,7 +1007,7 @@
 		"packSize": "25 gm",
 		"indications": ["Atisara", "Pravahika", "Vatashlaismika Pratishyaya"],
 		"dosage": "1-3 gm",
-		"precaution": "Infantile diarrhea, long term use",
+		"precaution": ["Infantile diarrhea, long term use"],
 		"opdIp": "Both",
 		"category": "Churna - Multi-ingredient"
 	  },
