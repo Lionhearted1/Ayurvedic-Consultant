@@ -7,7 +7,7 @@ import NavigationBar from './components/NavigationBar';
 
 const inter = Inter({ subsets: ['latin'] });
 
-const excludedRoutes = ['./login', './register','./register-1']; 
+const excludedRoutes = ['./login', './register']; 
 
 export default function RootLayout({ children }) {
   const router = useRouter();
