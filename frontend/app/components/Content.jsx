@@ -5,19 +5,16 @@ import AutoTypingMessage from "../search/components/AutoTypingMessage";
 
 const Content = () => {
   return (
-        <div className="absolute w-full h-full flex flex-col items-center content-between justify-center space-y-[3rem]" >
+        <div className="absolute w-full h-full flex flex-col items-center content-between justify-center space-y-[1.5rem]
+        sm:space-y-[3rem] px-4 md:px-8" >
             {/* <h1 className=" text-[2rem] text-white md:text-[3rem]">Welcome</h1> */}
             <AutoTypingMessage
-            message="Welcome..."
+            message="Welcome"
             condition={"text-[2rem] text-white md:text-[3rem]"}/>
             <p className=" text-white text-[1rem] md:text-[1.4rem] lg:text-[1.6rem] max-w-6xl">
-                Our Ayurvedic page is a holistic wellness hub, dedicated to the
-                ancient healing tradition of Ayurveda. Explore the timeless wisdom of
-                Ayurvedic remedies, lifestyle tips, and natural therapies to harmonize
-                your mind, body, and spirit. Discover personalized insights on
-                nutrition, herbs, and self-care practices for a balanced and vibrant
-                life. Join us on a journey of well-being rooted in the wisdom of
-                Ayurveda.
+              Ayurvedic Consultant's main objective is to help empower aspiring Ayurvedic Practitioner's by providing 
+              consultancy services in the form of our intuitive interface to help solve their queries. We utilise a 
+              comprehensive database provided and officiated by Government of India, to provide drug recommendation along with their dosage and reference text. Our aim is to assist students with our user-friendly approach on their learning journey so they may develop and use their skills to help the public.
             </p>
             <Link href="/login">
             <button className=" text-white text-[1rem] bg-green-800 bg-opacity-75 w-[auto] h-[auto]

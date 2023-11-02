@@ -3,7 +3,7 @@ import React from "react";
 const FormInput = (props) => {
 
     const onChangeHandler=(e)=>{
-        e.preventDefault();
+
         props.onChange(e);
     }
 

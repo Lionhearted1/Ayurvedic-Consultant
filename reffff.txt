@@ -1,0 +1,51 @@
+import React, { useRef, useState, useEffect } from "react";
+
+const AutoComplete = () => {
+  // ... (other state and functions)
+
+  const suggestionsRef = useRef(null);
+
+  useEffect(() => {
+    // Ensure that the selected suggestion is always in the view
+    if (suggestionsRef.current) {
+      const suggestionElement = suggestionsRef.current.children[selectedSuggestionIndex];
+      if (suggestionElement) {
+        // Calculate the scroll position to make the selected suggestion visible
+        const suggestionTop = suggestionElement.offsetTop;
+        const suggestionHeight = suggestionElement.clientHeight;
+        const containerHeight = suggestionsRef.current.clientHeight;
+        const scrollTop = suggestionsRef.current.scrollTop;
+
+        if (suggestionTop < scrollTop) {
+          suggestionsRef.current.scrollTop = suggestionTop;
+        } else if (suggestionTop + suggestionHeight > scrollTop + containerHeight) {
+          suggestionsRef.current.scrollTop = suggestionTop + suggestionHeight - containerHeight;
+        }
+      }
+    }
+  }, [selectedSuggestionIndex]);
+
+  // ... (rest of the component)
+
+  return (
+    <div>
+      <input
+        type="text"
+        value={query}
+        onChange={handleInputChange}
+        onKeyDown={handleKeyDown}
+        placeholder="Search for something..."
+        ref={inputRef}
+      />
+      <div
+        className="suggestions"
+        style={{ maxHeight: "200px", overflowY: "auto" }}
+        ref={suggestionsRef}
+      >
+        { /* suggestions mapping code */}
+      </div>
+    </div>
+  );
+};
+
+export default AutoComplete;
