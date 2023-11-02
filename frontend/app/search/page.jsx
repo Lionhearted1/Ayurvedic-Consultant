@@ -8,11 +8,13 @@ import AutoTypingMessage from "./components/AutoTypingMessage";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import RedirectComponent from "../components/RedirectComponent";
-
+import { useRouter } from "next/navigation";
 
 
 
 const Page = () => {
+
+  const router = useRouter();
 
   //for name
   const name=localStorage.getItem('username')
@@ -62,6 +64,7 @@ const Page = () => {
       toast.success(data, { autoClose: 2000 });
       console.log(data);
       localStorage.setItem('resItems',JSON.stringify(data))
+      router.push('/results')
     } else {
       data = response.data;
       console.log(data.message)
