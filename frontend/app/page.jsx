@@ -3,7 +3,6 @@ import Link from "next/link";
 import React from "react";
 import Background from './components/Background.jsx';
 import Content from './components/Content.jsx';
-import DropdownMenu from './components/DropdownMenu.jsx';
 
 
 const page = () => {
