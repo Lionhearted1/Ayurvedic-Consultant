@@ -11,13 +11,12 @@ const Content = () => {
             message="Welcome..."
             condition={"text-[2rem] text-white md:text-[3rem]"}/>
             <p className=" text-white text-[1rem] md:text-[1.4rem] lg:text-[1.6rem] max-w-6xl">
-                Our Ayurvedic page is a holistic wellness hub, dedicated to the
-                ancient healing tradition of Ayurveda. Explore the timeless wisdom of
-                Ayurvedic remedies, lifestyle tips, and natural therapies to harmonize
-                your mind, body, and spirit. Discover personalized insights on
-                nutrition, herbs, and self-care practices for a balanced and vibrant
-                life. Join us on a journey of well-being rooted in the wisdom of
-                Ayurveda.
+              Ayurvedic Consultant's main objective is to help empower aspiring Ayurvedic Practitioner's by providing 
+              consultancy services in the form of our intuitive interface to help solve their queries. We provide a 
+              comprehensive database of drug formulations along with their dosage and reference text as we understand 
+              the importance of precise and authentic knowledge for ayurvedic practitioners. Our aim is to assist 
+              students with our user-friendly approach on their learning journey so they may develop and use their 
+              skills to help the public.
             </p>
             <Link href="/login">
             <button className=" text-white text-[1rem] bg-green-800 bg-opacity-75 w-[auto] h-[auto]
