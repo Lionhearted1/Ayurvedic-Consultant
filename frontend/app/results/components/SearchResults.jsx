@@ -3,7 +3,7 @@ import React from 'react';
 const SearchResults = ({medicine}) => {
   return (
     
-          <div key={medicine.id} className="bg-black hover:bg-gray-100 bg-opacity-70 text-white hover:text-black rounded-lg p-4 mx-2.5 shadow-md">
+          <div key={medicine.id} className="bg-black hover:bg-gray-100 bg-opacity-70 text-white hover:text-black rounded-lg p-4 mx-2.5 shadow-md cursor-pointer">
             <h2 className="text-xl font-semibold mb-2">{medicine.medicine}</h2>
             <div className='hover:text-black font-light '>
             <p>Reference: {medicine.reference}</p>
