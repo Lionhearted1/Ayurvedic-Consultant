@@ -16,10 +16,10 @@ const Page = () => {
       <button className="absolute top-1 left-1 text-3xl p-3 bg-transparent rounded-lg  "><IoMdArrowBack className="mr-2 text-gray-300 hover:text-white" /></button>
       </Link>
       
-      <div className="back p-10 sm:p-14 ">
+      <div className="back p-5 sm:p-7 ">
         
          <div className="overflow-y-auto" >
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="pt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 ">
            {medicines.map((medicine) => (
               <SearchResults key={medicine.id} medicine={medicine} />
             ))}
