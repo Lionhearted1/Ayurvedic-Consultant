@@ -7,14 +7,16 @@ import axios from "axios";
 import AutoTypingMessage from "./components/AutoTypingMessage";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useSearchParams } from 'next/navigation'; 
+import RedirectComponent from "../components/RedirectComponent";
+
 
 
 
 const Page = () => {
 
-  const userparams=useSearchParams();
-  const name=userparams.get('name')
+  const isLogged=localStorage.getItem('isLogged')
+  const name=localStorage.getItem('username')
+
  //for search-bar
   const [searchTerm, setSearchTerm] = useState(()=>{
     const searchQuery=localStorage.getItem('query')
@@ -58,12 +60,11 @@ const Page = () => {
       if (response.status === 200) {
       data = response.data;
       toast.success(data, { autoClose: 2000 });
-      setResData(response.data)
       console.log(data);
+      localStorage.setItem('resItems',JSON.stringify(data))
     } else {
       data = response.data;
       console.log(data.message)
-      setResData(data.message)
       toast.error(data.message, { autoClose: 2000 });
     }
   }
@@ -87,7 +88,13 @@ const Page = () => {
     setPrecAvailable(prec)
   }
 
-  
+  if(isLogged=="false"){
+    return (<>
+    <RedirectComponent/>
+    </>)
+  }
+
+  else{
   return (
     <>
        <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
@@ -122,5 +129,6 @@ const Page = () => {
     </>
   );
 };
+}
 
 export default Page;

@@ -59,7 +59,9 @@ const Page = () => {
       if(response.status===200){
         console.log("Hello")
       toast.success(response.data.status);
-      setTimeout(()=>{router.push(`/search?name=${name}`)},1000)
+      localStorage.setItem('username',name)
+      localStorage.setItem('isLogged',"true")
+      setTimeout(()=>{router.push(`/search`)},1000)
       }else{
         toast.error(response.data.error)
       }

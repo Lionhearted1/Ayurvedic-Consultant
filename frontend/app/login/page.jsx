@@ -46,6 +46,8 @@ const Page = () => {
         console.log("Hello")
       toast.success(response.data.status);
       let name=response.data.name;
+      localStorage.setItem('username',name)
+      localStorage.setItem('isLogged',"true")
       setTimeout(()=>{router.push(`/search?name=${name}`)},500)
       
       }else{

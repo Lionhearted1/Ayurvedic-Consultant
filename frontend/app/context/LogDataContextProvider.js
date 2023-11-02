@@ -3,10 +3,7 @@ import { LogDataContext } from "./LogDataContext"; // Import your LogDataContext
 import { useCookies } from "react-cookie";
 
 export const LogDataContextProvider = ({ children }) => {
-  const [logData, setLogData] = useState({
-    loggedIn:false,
-    username:""
-  });
+  const [logData, setLogData] = useState(false)
   const [cookies, setCookie] = useCookies(["logData"]);
 
   useEffect(() => {
