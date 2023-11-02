@@ -12,13 +12,13 @@ const LogOutComponent = () => {
     localStorage.removeItem("selectedItems")
     localStorage.setItem('isLogged',"false")
     const router=useRouter();
-    const [count,setCount]=useState(3)
+    const [count,setCount]=useState(2)
     useEffect(()=>{
         setInterval(()=>{
             setCount(count-1)
         },1000)
 
-        setTimeout(()=>{router.push('/')},3000) 
+        setTimeout(()=>{router.push('/')},2000) 
     })
   return (
     <>

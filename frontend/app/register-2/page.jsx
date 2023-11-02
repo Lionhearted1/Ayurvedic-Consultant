@@ -53,7 +53,7 @@ const Page = () => {
         email,
         password,
       },{validateStatus: function (status) {
-        return status < 300; // Resolve only if the status code is less than 500
+        return status < 500; // Resolve only if the status code is less than 500
       }});
       console.log('HTTP status code:', response.status);
       // Handle the response here.
