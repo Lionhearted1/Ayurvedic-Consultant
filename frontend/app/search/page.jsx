@@ -52,7 +52,6 @@ const Page = () => {
   //submit
   const conOnClickHandle = async () => {
     let data;
-    console.log(url)
 
     try {
       const response = await axios.get(`http://localhost:3002/medicines/filter${url}`
@@ -62,17 +61,15 @@ const Page = () => {
       if (response.status === 200) {
       data = response.data;
       toast.success(data, { autoClose: 2000 });
-      console.log(data);
       localStorage.setItem('resItems',JSON.stringify(data))
       router.push('/results')
     } else {
       data = response.data;
-      console.log(data.message)
       toast.error(data.message, { autoClose: 2000 });
     }
   }
     catch (error) {
-      console.error("Error:", error);
+      toast.error("Error:", error);
       toast.error("An error occurred. Please try again.", { autoClose: 2000 });
     }
   };

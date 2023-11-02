@@ -14,7 +14,7 @@ export const LogDataContextProvider = ({ children }) => {
       setLogData((logDataFromCookie));
     }
     }catch(error){
-        console.log(error)
+        toast.log(error)
     }
     
   }, []);

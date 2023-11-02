@@ -100,7 +100,7 @@ const Checkbox = (props) => {
         setResError(data.message)
       }
     } catch (error) {
-      console.error(error);
+      toast.error(error);
     }
   };
 

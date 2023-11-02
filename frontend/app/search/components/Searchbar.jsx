@@ -4,6 +4,7 @@ import axios from "axios";
 import Suggestions from "./Suggestions";
 import { GrSearch } from "react-icons/gr";
 import { AiOutlineCloseCircle } from "react-icons/ai";
+import { toast } from "react-toastify";
 
 const Searchbar = (props) => {
   const [isFocused, setIsFocused] = useState(false);
@@ -63,7 +64,7 @@ localStorage.setItem('query',query)
         setSuggestions([]); // Clear suggestions
       }
     } catch (error) {
-      console.error("Error fetching suggestions:", error);
+      toast.error("Error fetching suggestions:", error);
       setError("Failed to fetch suggestions. Please try again.");
       setSuggestions([]); // Clear suggestions
     } finally {

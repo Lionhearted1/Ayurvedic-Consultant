@@ -50,7 +50,6 @@ const Page = () => {
       );
       // Handle the response here.
       if (response.status === 200) {
-        console.log("Hello");
         toast.success(response.data.status);
         let name = response.data.name;
         localStorage.setItem("username", name);

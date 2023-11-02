@@ -43,7 +43,6 @@ const Page = () => {
       toast.error('Password and Confirm Password do not match');
       return;
     }
-    console.log(name,role,email,password)
     let response;
 
     try {
@@ -55,10 +54,8 @@ const Page = () => {
       },{validateStatus: function (status) {
         return status < 500; // Resolve only if the status code is less than 500
       }});
-      console.log('HTTP status code:', response.status);
       // Handle the response here.
       if(response.status===200){
-        console.log("Hello")
       toast.success(response.data.status);
       localStorage.setItem('username',name)
       localStorage.setItem('isLogged',"true")
