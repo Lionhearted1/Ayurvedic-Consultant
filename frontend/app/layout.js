@@ -28,7 +28,7 @@ useEffect(()=>{
   return (
     <html lang="en">
       <title>AyurVaidya</title>
-    <description>App that recommends medicines</description>
+    <meta name="description" content="App that recommends Ayurvedic medicines" />
       <body className={shouldDisplayNavigationBar ? 'with-navbar' : ''}>
 
         {shouldDisplayNavigationBar && <NavigationBar />}
