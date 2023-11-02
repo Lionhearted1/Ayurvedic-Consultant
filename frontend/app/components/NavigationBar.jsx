@@ -10,6 +10,8 @@ const NavigationBar = () => {
     setIsOpen(!isOpen);
   };
 
+  const isLogged = localStorage.getItem("isLogged");
+
 
 
   return (
@@ -26,7 +28,7 @@ const NavigationBar = () => {
         <Link href="/" className="text-white text-center py-2 hover:text-black hover:bg-gray-300 active:bg-green-500">Home</Link>
         <Link href="./login" className="text-white text-center py-2 hover:text-black hover:bg-gray-300 active:bg-green-500">Login</Link>
         <Link href="./search" className="text-white text-center py-2 hover:text-black hover:bg-gray-300 active:bg-green-500">Search</Link>
-        <Link href="#" className="text-white text-center py-2 hover:text-black hover:bg-gray-300 active:bg-green-500">Logout</Link>
+        {isLogged=="true" && <Link href="/logout" className="text-white text-center py-2 hover:text-black hover:bg-gray-300 active:bg-green-500">Logout</Link>}
       </div>
       </div>
     </div>

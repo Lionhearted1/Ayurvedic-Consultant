@@ -12,7 +12,6 @@ const page = () => {
       <Background />
       <Content />
       <div className="absolute top-0 right-0 mt-4 mr-4">
-        <DropdownMenu />
       </div>
     </div>
   );

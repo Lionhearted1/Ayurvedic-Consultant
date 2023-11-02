@@ -1,20 +1,29 @@
 "use client";
 import { useRouter } from 'next/navigation';
-import { Inter } from 'next/font/google';
 import './globals.css';
 import Background from './components/Background'; 
 import NavigationBar from './components/NavigationBar'; 
+import { useEffect, useState } from 'react';
 
 
 
-const inter = Inter({ subsets: ['latin'] });
-
-const excludedRoutes = ['./login', './register']; 
+const excludedRoutes = ['/login', '/register-1','/register-2']; 
 
 export default function RootLayout({ children }) {
   const router = useRouter();
   const currentRoute = router.pathname;
-  const shouldDisplayNavigationBar = !excludedRoutes.includes(currentRoute);
+  const [shouldDisplayNavigationBar,setShouldDisplayNavigationBar]=useState(false);
+
+useEffect(()=>{
+  if(!excludedRoutes.includes(currentRoute)){
+    setShouldDisplayNavigationBar(true)
+   }
+   else{
+    setShouldDisplayNavigationBar(false)
+   }
+},[])
+      
+
 
 
   return (
