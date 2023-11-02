@@ -6,13 +6,13 @@ import Link from 'next/link'
 
 const RedirectSearchComponent = () => {
     const router=useRouter();
-    const [count,setCount]=useState(2)
+    const [count,setCount]=useState(1)
     useEffect(()=>{
         setInterval(()=>{
             setCount(count-1)
         },1000)
 
-        setTimeout(()=>{router.push('/search')},2000) 
+        setTimeout(()=>{router.push('/search')},1000) 
     })
   return (
     <>

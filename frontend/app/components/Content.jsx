@@ -5,7 +5,8 @@ import AutoTypingMessage from "../search/components/AutoTypingMessage";
 
 const Content = () => {
   return (
-        <div className="absolute w-full h-full flex flex-col items-center content-between justify-center space-y-[3rem]" >
+        <div className="absolute w-full h-full flex flex-col items-center content-between justify-center space-y-[1.5rem]
+        sm:space-y-[3rem] px-4 md:px-8" >
             {/* <h1 className=" text-[2rem] text-white md:text-[3rem]">Welcome</h1> */}
             <AutoTypingMessage
             message="Welcome..."
